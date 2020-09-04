@@ -19,7 +19,7 @@ import androidx.annotation.StringRes;
  */
 public class ToastX {
 
-    public interface PrintToastDelegate {
+    public interface ToastDelegate {
 
         /**
          * Set the gravity.
@@ -138,9 +138,9 @@ public class ToastX {
         void cancel();
     }
 
-    private static PrintToastDelegate DELEGETE = null;
+    private static ToastDelegate DELEGETE = null;
 
-    public static void setDelegete(PrintToastDelegate delegete) {
+    public static void setDelegete(ToastDelegate delegete) {
         DELEGETE = delegete;
     }
 

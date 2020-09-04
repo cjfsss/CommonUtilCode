@@ -23,6 +23,7 @@ import java.util.UUID;
  * @date : 2020/1/1 23:26
  */
 public class StringUtils {
+
     @NonNull
     public static StringBuilder deleteEnd(@NonNull StringBuilder builder) {
         if (builder.length() > 1) {
@@ -119,6 +120,16 @@ public class StringUtils {
         return time;
     }
 
+    public static String toStringZero(String value) {
+        if (TextUtils.isEmpty(value)) {
+            return "0";
+        }
+        if (value.indexOf(".") > 0) {
+            value = value.replaceAll("0+?$", "");//去掉多余的0
+            value = value.replaceAll("[.]$", "");//如最后一位是.则去掉
+        }
+        return value;
+    }
     /**
      * 获取已,隔开的第一个
      */

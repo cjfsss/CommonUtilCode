@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
-import android.content.Context;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -28,18 +27,9 @@ public final class NotifyManagerCompat implements NotifyManager {
     private static final String TAG = "NotifyManagerCompat";
 
     private NotificationManagerCompat mManagerCompat;
-    private NotificationManager mNotificationManager;
 
     public static NotifyManager create() {
         return new NotifyManagerCompat();
-    }
-
-    @NonNull
-    private NotificationManager getNotificationManager() {
-        if (mNotificationManager == null) {
-            return mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        }
-        return mNotificationManager;
     }
 
     @NonNull
@@ -54,28 +44,20 @@ public final class NotifyManagerCompat implements NotifyManager {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = getNotificationChannel();
             if (notificationChannel == null) {
-                getNotificationManager().createNotificationChannel(getNotificationChannelNew());
+                getManagerCompat().createNotificationChannel(getNotificationChannelNew());
             }
-            getNotificationManager().notify(tag, id, notification);
+            getManagerCompat().notify(tag, id, notification);
         } else {
             getManagerCompat().notify(tag, id, notification);
         }
     }
 
     public void cancel(@Nullable String tag, int id) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            getNotificationManager().cancel(tag, id);
-        } else {
-            getManagerCompat().cancel(tag, id);
-        }
+        getManagerCompat().cancel(tag, id);
     }
 
     public void cancelAll() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            getNotificationManager().cancelAll();
-        } else {
-            getManagerCompat().cancelAll();
-        }
+        getManagerCompat().cancelAll();
     }
 
     @NonNull
@@ -88,23 +70,23 @@ public final class NotifyManagerCompat implements NotifyManager {
     @Nullable
     @RequiresApi(api = Build.VERSION_CODES.O)
     public NotificationChannel getNotificationChannel() {
-        return getNotificationManager().getNotificationChannel(getChannelId());
+        return getManagerCompat().getNotificationChannel(getChannelId());
     }
 
     @Nullable
     @RequiresApi(api = Build.VERSION_CODES.O)
     public NotificationChannel getNotificationChannel(@NonNull String channelId) {
-        return getNotificationManager().getNotificationChannel(channelId);
+        return getManagerCompat().getNotificationChannel(channelId);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void createNotificationChannel(@NonNull NotificationChannel channel) {
-        getNotificationManager().createNotificationChannel(channel);
+        getManagerCompat().createNotificationChannel(channel);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void startForeground(@NonNull Service service, int id, @NonNull Notification notification) {
-        getNotificationManager().createNotificationChannel(getNotificationChannelNew());
+        getManagerCompat().createNotificationChannel(getNotificationChannelNew());
         service.startForeground(id, notification);
     }
 

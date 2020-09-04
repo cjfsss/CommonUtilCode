@@ -6,6 +6,8 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import com.cjf.util.function.UtilFunction;
+import com.cjf.util.log.LogX;
+import com.cjf.util.toast.ToastX;
 
 /**
  * <p>Title: UtilX </p>
@@ -26,6 +28,8 @@ public class UtilX {
     public static void init(@NonNull UtilFunction function) {
         application = function.getApplication();
         UtilX.utilFunction = function;
+        LogX.setDelegate(function.getLogDelegate());
+        ToastX.setDelegete(function.getToastDelegate());
     }
 
 

@@ -59,7 +59,7 @@ public class DrawableTintUtils {
 
     @Nullable
     public static Drawable getTintDrawablePrimary(@NonNull Context context, int id) {
-        return getTintDrawable(context, id, ResUtils.getColorPrimary(context));
+        return getTintDrawable(context, id, ResUtils.getColorPrimary());
     }
 
     @Nullable
@@ -85,7 +85,7 @@ public class DrawableTintUtils {
      */
     @Nullable
     public static Drawable tintDrawablePrimary(@NonNull Context context, @NonNull Drawable drawable) {
-        return tintDrawable(drawable, ResUtils.getColorPrimary(context));
+        return tintDrawable(drawable, ResUtils.getColorPrimary());
     }
 
     /**

@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 
 import com.cjf.util.UtilX;
 
@@ -39,21 +40,10 @@ public class ResUtils {
      *
      * @return 0xAARRGGBB
      */
-    public static int getColorPrimary(Context context) {
+    public static int getColorPrimary() {
         return UtilX.getPrimaryColor();
     }
 
-
-    /**
-     * 获取字符串
-     */
-    public static CharSequence getText(Context context, @StringRes int id) {
-        if (Build.VERSION.SDK_INT >= 23) {
-            return context.getText(id);
-        } else {
-            return context.getResources().getText(id);
-        }
-    }
 
     /**
      * 获取字符串
@@ -104,29 +94,17 @@ public class ResUtils {
 
     @Nullable
     public static Drawable getDrawable(@NonNull Context context, @DrawableRes int id) {
-        if (Build.VERSION.SDK_INT >= 21) {
-            return context.getDrawable(id);
-        } else {
-            return context.getResources().getDrawable(id);
-        }
+        return ContextCompat.getDrawable(context, id);
     }
 
     @Nullable
     public static ColorStateList getColorStateList(@NonNull Context context, @ColorRes int id) {
-        if (Build.VERSION.SDK_INT >= 23) {
-            return context.getColorStateList(id);
-        } else {
-            return context.getResources().getColorStateList(id);
-        }
+        return ContextCompat.getColorStateList(context, id);
     }
 
     @ColorInt
     public static int getColor(Context context, @ColorRes int id) {
-        if (Build.VERSION.SDK_INT >= 23) {
-            return context.getColor(id);
-        } else {
-            return context.getResources().getColor(id);
-        }
+        return ContextCompat.getColor(context, id);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -148,22 +126,6 @@ public class ResUtils {
         return UtilX.application;
     }
 
-    /**
-     * 获取colorPrimary的颜色,需要V7包的支持
-     *
-     * @return 0xAARRGGBB
-     */
-    public static int getColorPrimary() {
-        return getColorPrimary(getContext());
-    }
-
-
-    /**
-     * 获取字符串
-     */
-    public static CharSequence getText(@StringRes int id) {
-        return getText(getContext(), id);
-    }
 
     /**
      * 获取字符串

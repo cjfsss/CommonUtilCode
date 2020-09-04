@@ -10,7 +10,7 @@ import android.text.TextWatcher;
  * @Author: CaiJunFeng on 2018-8-7 10:01
  * @Description:
  */
-public interface SimpleTextWatcher extends TextWatcher {
+public interface SimpleTextChangeWatcher extends TextWatcher {
     @Override
     default void beforeTextChanged(CharSequence s, int start, int count, int after) {
 

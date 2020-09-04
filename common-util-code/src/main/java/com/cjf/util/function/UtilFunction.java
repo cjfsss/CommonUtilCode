@@ -5,6 +5,9 @@ import android.app.Application;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
+import com.cjf.util.log.LogX;
+import com.cjf.util.toast.ToastX;
+
 /**
  * <p>Title: UtilFunction </p>
  * <p>Description:  </p>
@@ -18,6 +21,12 @@ public interface UtilFunction {
 
     @NonNull
     Application getApplication();
+
+    @NonNull
+    LogX.LogDelegate getLogDelegate();
+
+    @NonNull
+    ToastX.ToastDelegate getToastDelegate();
 
     @ColorInt
     int getPrimaryColor();
