@@ -28,6 +28,15 @@
     <string name="common_step_complete">完成</string>
     <string name="common_step_commit">提交</string>
 
+    <string name="common_permission_rationale">授予以下权限以继续该程序:\n\n%1$s</string>
+    <string name="common_permission_always_failed">请允许我们进行设置:\n\n%1$s</string>
+    <string name="common_permission_gps_open_message">请在 设置-应用管理 中开启此应用的定位授权！</string>
+    <string name="common_permission_authorization">授权</string>
+    <string name="common_permission_gps">需要使用定位功能，请授权使用定位权限！</string>
+    <string name="common_permission_verification_code">需要使用验证码，请授权使用短信权限！</string>
+    <string name="common_permission_phone">需要使用验证码，请授权使用电话权限！</string>
+    <string name="common_permission_camera">需要使用相机功能，请授权使用相机权限！</string>
+
     <string name="common_permission_hint">请先授予权限</string>
     <string name="common_permission_fail">授权失败，请手动授予权限</string>
 
@@ -120,11 +129,13 @@
     <string name="home_nav_me">我的</string>
 
     <!-- 登录 -->
+    <string name="login_user_title">登录</string>
     <string name="login_user_register">注册</string>
     <string name="login_register">注册</string>
     <string name="login_forget">忘记密码？</string>
-    <string name="login_text">登录</string>
-
+    <string name="login_register_success">注册成功</string>
+    <string name="login_register_error">注册失败</string>
+    <string name="login_verification_code_action">获取验证码</string>
 
     <string name="login_hint_login_name">请输入用户名</string>
     <string name="login_failing">登录失败，请重新登录!</string>
@@ -140,6 +151,9 @@
     <string name="register_password_hint1">设置6&#8211;18位登录密码</string>
     <string name="register_password_hint2">请再次输入一次密码</string>
     <string name="register_password_input_error">两次密码输入不一致，请重新输入</string>
+
+    <!--    密码-->
+    <string name="password_title">修改密码</string>
 
     <!-- 设置 -->
     <string name="setting_title">设置</string>
