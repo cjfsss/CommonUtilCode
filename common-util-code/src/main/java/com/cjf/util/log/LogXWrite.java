@@ -26,10 +26,9 @@ import java.util.Locale;
 public class LogXWrite {
 
 
-    synchronized static void writeToLocal(@NonNull Throwable e, @NonNull String ClassName, @NonNull String format) {
+    synchronized static void writeToLocal(@NonNull Throwable e, @NonNull String ClassName, final Object... objs) {
         try {
-            @NonNull
-            String logPath = PathManager.getLogDir();
+            @NonNull String logPath = PathManager.getLogDir();
             LogX.eTag(LogX.TAG, "logPath:" + logPath);
             File path = new File(logPath);
             createOrExistsDir(path);
@@ -40,7 +39,12 @@ public class LogXWrite {
                 createOrExistsFile(file);
             }
             fw.write(getNowString() + "     ClassName:" + ClassName + "\n");
-            fw.write(format + "\n");
+            if (objs != null) {
+                for (Object obj : objs) {
+                    fw.write(obj + "");
+                }
+                fw.write("\n");
+            }
             fw.write(e.getClass().getName() + "\n");
             for (StackTraceElement ste : e.getStackTrace()) {
                 String line = ste.toString();
@@ -75,10 +79,16 @@ public class LogXWrite {
      * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
      */
     private static boolean createOrExistsFile(final File file) {
-        if (file == null) return false;
+        if (file == null) {
+            return false;
+        }
         // 如果存在，是文件则返回true，是目录则返回false
-        if (file.exists()) return file.isFile();
-        if (!createOrExistsDir(file.getParentFile())) return false;
+        if (file.exists()) {
+            return file.isFile();
+        }
+        if (!createOrExistsDir(file.getParentFile())) {
+            return false;
+        }
         try {
             return file.createNewFile();
         } catch (IOException e) {
@@ -105,7 +115,8 @@ public class LogXWrite {
      * @return 时间字符串
      */
     private static String getNowString() {
-        return millis2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()));
+        return millis2String(System.currentTimeMillis(),
+                             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()));
     }
 
     /**

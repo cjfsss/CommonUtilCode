@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -106,7 +107,7 @@ public class StringUtils {
      * @param time 时间
      */
     @NonNull
-    public static String toTime(@NonNull String time) {
+    public static String toTime(@Nullable String time) {
         if (!TextUtils.isEmpty(time)) {
             if (!time.contains("T")) {
                 return time;

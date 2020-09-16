@@ -118,12 +118,15 @@ public class ResUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isTablet(Context context) {
+        if (context == null) {
+            context = UtilX.getApplication();
+        }
         return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >=
                Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
     public static Context getContext() {
-        return UtilX.application;
+        return UtilX.getApplication();
     }
 
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="androidx.appcompat.widget.LinearLayoutCompat">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLeftImage"
+        android:layout_width="34dp"
+        android:layout_height="34dp" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvLeftText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#111"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvLeftSubText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#777"
+            android:textSize="13sp"
+            android:visibility="gone" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCenterText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:textColor="#222"
+        android:textSize="15sp"
+        android:visibility="invisible" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvRightText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:textColor="#777"
+        android:textSize="15sp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivRightImage2"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivRightImage"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="10dp" />
+</merge>

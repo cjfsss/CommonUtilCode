@@ -19,11 +19,11 @@ import com.cjf.util.UtilX;
 public class ServiceUtils {
 
     public static void startForegroundService(@NonNull Intent intent) {
-        ContextCompat.startForegroundService(UtilX.application, intent);
+        ContextCompat.startForegroundService(UtilX.getApplication(), intent);
     }
 
     public static void startForegroundService(@NonNull Class<?> cls, String action) {
-        Intent intent = new Intent(UtilX.application, cls);
+        Intent intent = new Intent(UtilX.getApplication(), cls);
         intent.setAction(action);
         startForegroundService(intent);
     }

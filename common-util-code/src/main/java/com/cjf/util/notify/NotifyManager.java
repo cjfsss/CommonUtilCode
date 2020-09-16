@@ -31,7 +31,7 @@ public interface NotifyManager {
 
     @NonNull
     default Context getContext() {
-        return UtilX.application;
+        return UtilX.getApplication();
     }
 
     @NonNull

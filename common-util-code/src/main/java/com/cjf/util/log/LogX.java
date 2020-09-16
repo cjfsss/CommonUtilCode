@@ -66,8 +66,7 @@ public class LogX {
 
         void xml(@NonNull final String tag, @NonNull final String content);
 
-        void printErrStackTrace(@NonNull String tag, @NonNull Throwable tr, @NonNull final String format,
-                @NonNull final Object... obj);
+        void printErrStackTrace(@NonNull String tag, @NonNull Throwable tr, @NonNull final Object... obj);
     }
 
     private static LogDelegate DELEGETE = null;
@@ -162,14 +161,14 @@ public class LogX {
     }
 
     public static void printErrStackTrace(@NonNull final String tag, @NonNull final Throwable throwable,
-                                          @NonNull final String format, final Object... obj) {
+            final Object... obj) {
         if (DELEGETE != null) {
-            DELEGETE.printErrStackTrace(tag, throwable, format, obj);
+            DELEGETE.printErrStackTrace(tag, throwable, obj);
         }
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                LogXWrite.writeToLocal(throwable, tag, format);
+                LogXWrite.writeToLocal(throwable, tag, obj);
                 return null;
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

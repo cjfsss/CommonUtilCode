@@ -22,7 +22,7 @@ import java.util.Locale;
  * @version : 1.0
  * @date : 2020/3/26 17:29
  */
-public class DateUtils {
+public class  DateUtils {
 
     /**
      * 时间日期格式化到年月日时分秒.

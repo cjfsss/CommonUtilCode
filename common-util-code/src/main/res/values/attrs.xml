@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HVScrollView">
+        <attr name="fillViewportH"  />
+        <attr name="fillViewportV"  />
+        <attr name="scrollOrientation"/>
+        <attr name="childLayoutCenter" format="boolean" />
+    </declare-styleable>
+
+    <attr name="fillViewportH" format="boolean" />
+    <attr name="fillViewportV" format="boolean" />
+
+    <attr name="scrollOrientation">
+        <enum name="none" value="0" />
+        <enum name="horizontal" value="1" />
+        <enum name="vertical" value="2" />
+        <enum name="both" value="3" />
+    </attr>
+
+    <attr name="BounceOrientation" format="enum">
+        <enum name="horizontal" value="0" />
+        <enum name="vertical" value="1" />
+    </attr>
+    <attr name="BounceResistance" format="float" />
+
+    <attr name="BounceDuration" format="integer" />
+
+
+
+    <declare-styleable name="BounceNestedScrollView">
+        <attr name="BounceOrientation" />
+        <attr name="BounceResistance" />
+        <attr name="BounceDuration" />
+    </declare-styleable>
+    <declare-styleable name="BounceLinearLayoutCompat">
+        <attr name="BounceOrientation" />
+        <attr name="BounceResistance" />
+        <attr name="BounceDuration" />
+    </declare-styleable>
+    <declare-styleable name="BounceLinearLayout">
+        <attr name="BounceOrientation" />
+        <attr name="BounceResistance" />
+        <attr name="BounceDuration" />
+    </declare-styleable>
+    <declare-styleable name="BounceCoordinatorLayout">
+        <attr name="BounceOrientation" />
+        <attr name="BounceResistance" />
+        <attr name="BounceDuration" />
+    </declare-styleable>
+    <declare-styleable name="BounceHVScrollView">
+        <attr name="BounceOrientation" />
+        <attr name="BounceResistance" />
+        <attr name="BounceDuration" />
+    </declare-styleable>
+    <declare-styleable name="BounceFrameLayout">
+        <attr name="BounceOrientation" />
+        <attr name="BounceResistance" />
+        <attr name="BounceDuration" />
+    </declare-styleable>
+    <declare-styleable name="BounceRelativeLayout">
+        <attr name="BounceOrientation" />
+        <attr name="BounceResistance" />
+        <attr name="BounceDuration" />
+    </declare-styleable>
+    <declare-styleable name="BounceRecyclerView">
+        <attr name="BounceOrientation" />
+        <attr name="BounceResistance" />
+        <attr name="BounceDuration" />
+    </declare-styleable>
+    <declare-styleable name="BounceViewPager2">
+        <attr name="BounceOrientation" />
+        <attr name="BounceResistance" />
+        <attr name="BounceDuration" />
+    </declare-styleable>
+
+    <declare-styleable name="BounceViewPager">
+        <attr name="BounceOrientation" />
+        <attr name="BounceResistance" />
+        <attr name="BounceDuration" />
+    </declare-styleable>
+
+    <attr name="x_separator" format="string" />
+    <attr name="x_disableClear" format="boolean" />
+    <attr name="x_clearDrawable" format="reference" />
+    <attr name="x_showPwdDrawable" format="reference" />
+    <attr name="x_hidePwdDrawable" format="reference" />
+    <attr name="x_disableEmoji" format="boolean" />
+    <attr name="x_togglePwdDrawableEnable" format="boolean" />
+    <attr name="x_pattern" format="string" />
+
+    <!-- 正则输入限制 -->
+    <declare-styleable name="XEditText">
+        <attr name="x_separator"/>
+        <attr name="x_disableClear" />
+        <attr name="x_clearDrawable" />
+        <attr name="x_showPwdDrawable"  />
+        <attr name="x_hidePwdDrawable"  />
+        <attr name="x_disableEmoji" />
+        <attr name="x_togglePwdDrawableEnable" />
+        <attr name="x_pattern"  />
+    </declare-styleable>
+
+    <!-- 正则输入限制 -->
+    <declare-styleable name="XTextInputEditText">
+        <attr name="x_separator"/>
+        <attr name="x_disableClear" />
+        <attr name="x_clearDrawable" />
+        <attr name="x_showPwdDrawable"  />
+        <attr name="x_hidePwdDrawable"  />
+        <attr name="x_disableEmoji" />
+        <attr name="x_togglePwdDrawableEnable" />
+        <attr name="x_pattern"  />
+    </declare-styleable>
+
+    <declare-styleable name="RegexEditText">
+        <!-- 正则输入限制 -->
+        <attr name="inputRegex" />
+        <!-- 常用正则类型 -->
+        <attr name="regexType"/>
+    </declare-styleable>
+
+    <declare-styleable name="RegexAutoCompleteTextView">
+        <!-- 正则输入限制 -->
+        <attr name="inputRegex" />
+        <!-- 常用正则类型 -->
+        <attr name="regexType"/>
+    </declare-styleable>
+    <declare-styleable name="RegexTextInputEditText">
+        <!-- 正则输入限制 -->
+        <attr name="inputRegex" />
+        <!-- 常用正则类型 -->
+        <attr name="regexType"/>
+    </declare-styleable>
+
+
+    <attr name="inputRegex" format="string" />
+
+    <attr name="regexType">
+        <!-- 手机号（只能以 1 开头） -->
+        <enum name="mobile" value="0x01" />
+        <!-- 中文（普通的中文字符） -->
+        <enum name="chinese" value="0x02" />
+        <!-- 英文（大写和小写的英文） -->
+        <enum name="english" value="0x03" />
+        <!-- 整数（非 0 开头的数字） -->
+        <enum name="count" value="0x04" />
+        <!-- 用户名（中文、英文、数字） -->
+        <enum name="name" value="0x05" />
+        <!-- 非空格字符 -->
+        <enum name="nonnull" value="0x06" />
+         <!-- 英文和数字 -->
+        <enum name="englishNumber" value="0x07" />
+        <!-- 身份证号 -->
+        <enum name="idCard" value="0x08" />
+    </attr>
+
+    <declare-styleable name="TitleBar">
+        <!--左边文本-->
+        <attr name="leftText" format="string" />
+        <attr name="leftTextColor" format="color" />
+        <attr name="leftTextSize" format="dimension" />
+        <attr name="leftTextDrawable" format="reference" />
+        <attr name="leftTextDrawableSize" format="dimension" />
+        <attr name="bottomLine" format="color" />
+
+        <!--左边图片-->
+        <attr name="leftImageSrc" format="reference" />
+        <attr name="leftImagePadding" format="dimension" />
+
+        <!--中间标题-->
+        <attr name="title" format="string" />
+        <attr name="titleSize" format="dimension" />
+        <attr name="titleColor" format="color" />
+        <attr name="titleAlignLeft" format="boolean" />
+
+        <!--右边文字-->
+        <attr name="rightText" format="string" />
+        <attr name="rightTextColor" format="color" />
+        <attr name="rightTextSize" format="dimension" />
+
+        <!--右边图片-->
+        <attr name="rightImageSrc" format="reference" />
+        <attr name="rightImagePadding" format="dimension" />
+
+        <!--右边图片2-->
+        <attr name="rightImage2Src" format="reference" />
+        <attr name="rightImage2Padding" format="dimension" />
+
+        <!--右边图片3-->
+        <attr name="rightImage3Src" format="reference" />
+        <attr name="rightImage3Padding" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="SuperLayout">
+        <attr name="sl_leftImageSrc" format="reference" />
+        <attr name="sl_leftImageSize" format="dimension" />
+
+        <attr name="sl_leftText" format="string" />
+        <attr name="sl_leftTextColor" format="color" />
+        <attr name="sl_leftTextSize" format="dimension" />
+        <attr name="sl_leftTextMarginLeft" format="dimension" />
+        <attr name="sl_leftTextMarginTop" format="dimension" />
+        <attr name="sl_leftTextMarginRight" format="dimension" />
+        <attr name="sl_leftTextMarginBottom" format="dimension" />
+
+        <attr name="sl_leftSubText" format="string" />
+        <attr name="sl_leftSubTextColor" format="color" />
+        <attr name="sl_leftSubTextSize" format="dimension" />
+
+        <attr name="sl_centerText" format="string" />
+        <attr name="sl_centerTextColor" format="color" />
+        <attr name="sl_centerTextBg" format="reference" />
+        <attr name="sl_centerTextSize" format="dimension" />
+
+        <attr name="sl_rightText" format="string" />
+        <attr name="sl_rightTextColor" format="color" />
+        <attr name="sl_rightTextSize" format="dimension" />
+        <attr name="sl_rightTextBg" format="reference" />
+        <attr name="sl_rightTextBgColor" format="color" />
+        <attr name="sl_rightTextWidth" format="dimension" />
+        <attr name="sl_rightTextHeight" format="dimension" />
+
+        <attr name="sl_rightImageSrc" format="reference" />
+        <attr name="sl_rightImageMarginLeft" format="dimension" />
+        <attr name="sl_rightImageSize" format="dimension" />
+
+        <attr name="sl_rightImage2Src" format="reference" />
+        <attr name="sl_rightImage2MarginLeft" format="dimension" />
+        <attr name="sl_rightImage2Size" format="dimension" />
+
+        <attr name="sl_solid" format="color" />
+        <attr name="sl_corner" format="dimension" />
+        <attr name="sl_stroke" format="color" />
+        <attr name="sl_strokeWidth" format="dimension" />
+
+        <attr name="sl_topLineColor" format="color" />
+        <attr name="sl_bottomLineColor" format="color" />
+        <attr name="sl_lineSize" format="dimension" />
+
+        <attr name="sl_enableRipple" format="boolean" />
+        <attr name="sl_rippleColor" format="color" />
+
+        <attr name="sl_gradientStartColor" format="color" />
+        <attr name="sl_gradientEndColor" format="color" />
+        <attr name="sl_gradientOrientation">
+            <enum name="TOP_BOTTOM" value="0" />
+            <enum name="TR_BL" value="1" />
+            <enum name="RIGHT_LEFT" value="2" />
+            <enum name="BR_TL" value="3" />
+            <enum name="BOTTOM_TOP" value="4" />
+            <enum name="BL_TR" value="5" />
+            <enum name="LEFT_RIGHT" value="6" />
+            <enum name="TL_BR" value="7" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeFrameLayout">
+        <attr name="sfl_solid" format="color" />
+        <attr name="sfl_corner" format="dimension" />
+        <attr name="sfl_stroke" format="color" />
+        <attr name="sfl_strokeWidth" format="dimension" />
+
+        <attr name="sfl_topLineColor" format="color" />
+        <attr name="sfl_bottomLineColor" format="color" />
+        <attr name="sfl_lineSize" format="dimension" />
+
+        <attr name="sfl_enableRipple" format="boolean" />
+        <attr name="sfl_rippleColor" format="color" />
+
+        <attr name="sfl_gradientStartColor" format="color" />
+        <attr name="sfl_gradientEndColor" format="color" />
+        <attr name="sfl_gradientOrientation">
+            <enum name="TOP_BOTTOM" value="0" />
+            <enum name="TR_BL" value="1" />
+            <enum name="RIGHT_LEFT" value="2" />
+            <enum name="BR_TL" value="3" />
+            <enum name="BOTTOM_TOP" value="4" />
+            <enum name="BL_TR" value="5" />
+            <enum name="LEFT_RIGHT" value="6" />
+            <enum name="TL_BR" value="7" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeLinearLayout">
+        <attr name="sll_solid" format="color" />
+        <attr name="sll_corner" format="dimension" />
+        <attr name="sll_stroke" format="color" />
+        <attr name="sll_strokeWidth" format="dimension" />
+
+        <attr name="sll_topLineColor" format="color" />
+        <attr name="sll_bottomLineColor" format="color" />
+        <attr name="sll_lineSize" format="dimension" />
+
+        <attr name="sll_enableRipple" format="boolean" />
+        <attr name="sll_rippleColor" format="color" />
+
+        <attr name="sll_gradientStartColor" format="color" />
+        <attr name="sll_gradientEndColor" format="color" />
+        <attr name="sll_gradientOrientation">
+            <enum name="TOP_BOTTOM" value="0" />
+            <enum name="TR_BL" value="1" />
+            <enum name="RIGHT_LEFT" value="2" />
+            <enum name="BR_TL" value="3" />
+            <enum name="BOTTOM_TOP" value="4" />
+            <enum name="BL_TR" value="5" />
+            <enum name="LEFT_RIGHT" value="6" />
+            <enum name="TL_BR" value="7" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeRelativeLayout">
+        <attr name="srl_solid" format="color" />
+        <attr name="srl_corner" format="dimension" />
+        <attr name="srl_stroke" format="color" />
+        <attr name="srl_strokeWidth" format="dimension" />
+
+        <attr name="srl_topLineColor" format="color" />
+        <attr name="srl_bottomLineColor" format="color" />
+        <attr name="srl_lineSize" format="dimension" />
+
+        <attr name="srl_enableRipple" format="boolean" />
+        <attr name="srl_rippleColor" format="color" />
+
+        <attr name="srl_gradientStartColor" format="color" />
+        <attr name="srl_gradientEndColor" format="color" />
+        <attr name="srl_gradientOrientation">
+            <enum name="TOP_BOTTOM" value="0" />
+            <enum name="TR_BL" value="1" />
+            <enum name="RIGHT_LEFT" value="2" />
+            <enum name="BR_TL" value="3" />
+            <enum name="BOTTOM_TOP" value="4" />
+            <enum name="BL_TR" value="5" />
+            <enum name="LEFT_RIGHT" value="6" />
+            <enum name="TL_BR" value="7" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeTextView">
+        <attr name="stv_drawableWidth" format="dimension" />
+        <attr name="stv_drawableHeight" format="dimension" />
+        <attr name="stv_drawableSize" format="dimension" />
+
+        <attr name="stv_solid" format="color" />
+        <attr name="stv_corner" format="dimension" />
+        <attr name="stv_stroke" format="color" />
+        <attr name="stv_strokeWidth" format="dimension" />
+
+        <attr name="stv_enableRipple" format="boolean" />
+        <attr name="stv_rippleColor" format="color" />
+
+        <attr name="stv_topLineColor" format="color" />
+        <attr name="stv_bottomLineColor" format="color" />
+        <attr name="stv_lineSize" format="dimension" />
+
+        <attr name="stv_gradientStartColor" format="color" />
+        <attr name="stv_gradientEndColor" format="color" />
+        <attr name="stv_gradientOrientation">
+            <enum name="TOP_BOTTOM" value="0" />
+            <enum name="TR_BL" value="1" />
+            <enum name="RIGHT_LEFT" value="2" />
+            <enum name="BR_TL" value="3" />
+            <enum name="BOTTOM_TOP" value="4" />
+            <enum name="BL_TR" value="5" />
+            <enum name="LEFT_RIGHT" value="6" />
+            <enum name="TL_BR" value="7" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeEditText">
+        <attr name="set_drawableWidth" format="dimension" />
+        <attr name="set_drawableHeight" format="dimension" />
+        <attr name="set_drawableSize" format="dimension" />
+
+        <attr name="set_solid" format="color" />
+        <attr name="set_corner" format="dimension" />
+        <attr name="set_stroke" format="color" />
+        <attr name="set_strokeWidth" format="dimension" />
+
+        <attr name="set_enableRipple" format="boolean" />
+        <attr name="set_rippleColor" format="color" />
+
+        <attr name="set_topLineColor" format="color" />
+        <attr name="set_bottomLineColor" format="color" />
+        <attr name="set_lineSize" format="dimension" />
+
+        <attr name="set_gradientStartColor" format="color" />
+        <attr name="set_gradientEndColor" format="color" />
+        <attr name="set_gradientOrientation">
+            <enum name="TOP_BOTTOM" value="0" />
+            <enum name="TR_BL" value="1" />
+            <enum name="RIGHT_LEFT" value="2" />
+            <enum name="BR_TL" value="3" />
+            <enum name="BOTTOM_TOP" value="4" />
+            <enum name="BL_TR" value="5" />
+            <enum name="LEFT_RIGHT" value="6" />
+            <enum name="TL_BR" value="7" />
+        </attr>
+    </declare-styleable>
+
+    <!--验证码View-->
+    <declare-styleable name="VerifyView">
+        <attr name="vv_defText" format="string" />
+        <attr name="vv_countDownText" format="string" />
+        <attr name="vv_resendText" format="string" />
+        <attr name="vv_resendDuration" format="integer" />
+    </declare-styleable>
+
+    <!--RatioImageView-->
+    <declare-styleable name="RatioImageView">
+        <attr name="riv_ratio" format="float" />
+    </declare-styleable>
+
+
+    <!--TabBar-->
+    <declare-styleable name="TabBar">
+        <attr name="tb_iconSize" format="dimension" />
+        <attr name="tb_textSize" format="dimension" />
+        <attr name="tb_iconSpace" format="dimension" />
+        <attr name="tb_selectedColor" format="color" />
+        <attr name="tb_normalColor" format="color" />
+        <attr name="tb_tabHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="ImageUploader">
+        <attr name="addImageRes" format="reference" />
+        <attr name="spanCount" format="integer" />
+        <attr name="maxImages" format="integer" />
+        <attr name="hSpace" format="dimension" />
+        <attr name="vSpace" format="dimension" />
+        <attr name="delImageRes" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ExpandTextView">
+        <attr name="textExpand" format="string" />
+        <attr name="textClose" format="string" />
+        <attr name="textExpandColor" format="reference|color" />
+        <attr name="textCloseColor" format="reference|color" />
+    </declare-styleable>
+</resources>

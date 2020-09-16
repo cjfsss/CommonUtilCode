@@ -27,7 +27,7 @@ fun Toolbar.setCenterSubtitle() {
                 val params =
                     Toolbar.LayoutParams(
                         Toolbar.LayoutParams.WRAP_CONTENT,
-                        Toolbar.LayoutParams.MATCH_PARENT
+                        Toolbar.LayoutParams.WRAP_CONTENT
                     )
                 params.gravity = Gravity.CENTER
                 view.setLayoutParams(params)
@@ -47,7 +47,7 @@ fun Toolbar.setCenterTitle() {
                 val params =
                     Toolbar.LayoutParams(
                         Toolbar.LayoutParams.WRAP_CONTENT,
-                        Toolbar.LayoutParams.MATCH_PARENT
+                        Toolbar.LayoutParams.WRAP_CONTENT
                     )
                 params.gravity = Gravity.CENTER
                 view.setLayoutParams(params)
@@ -67,7 +67,7 @@ fun Toolbar.setCenterTitleBold() {
                 val params =
                     Toolbar.LayoutParams(
                         Toolbar.LayoutParams.WRAP_CONTENT,
-                        Toolbar.LayoutParams.MATCH_PARENT
+                        Toolbar.LayoutParams.WRAP_CONTENT
                     )
                 params.gravity = Gravity.CENTER
                 view.setLayoutParams(params)

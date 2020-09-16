@@ -22,11 +22,11 @@ public interface UtilFunction {
     @NonNull
     Application getApplication();
 
-    @NonNull
-    LogX.LogDelegate getLogDelegate();
-
-    @NonNull
-    ToastX.ToastDelegate getToastDelegate();
+//    @NonNull
+//    LogX.LogDelegate getLogDelegate();
+//
+//    @NonNull
+//    ToastX.ToastDelegate getToastDelegate();
 
     @ColorInt
     int getPrimaryColor();

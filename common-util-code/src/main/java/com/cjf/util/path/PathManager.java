@@ -34,11 +34,12 @@ public class PathManager {
                     // /storage/emulated/0
                     return environment + File.separator + path;
                 }
+                return getExternalRoot(path);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return getExternalRoot(path);
     }
 
     @Nullable
@@ -72,13 +73,13 @@ public class PathManager {
     @NonNull
     public static String getRoot(@NonNull String type) {
         @Nullable
-        File root = UtilX.application.getFilesDir();
+        File root = UtilX.getApplication().getFilesDir();
         if (root != null) {
             // /data/data/com.learn.test/files
             return root.getAbsolutePath() + File.separator + type;
         }
         // /data/data/com.learn.test/cache
-        return UtilX.application.getCacheDir().getAbsolutePath() + File.separator + type;
+        return UtilX.getApplication().getCacheDir().getAbsolutePath() + File.separator + type;
     }
 
     /**
@@ -90,7 +91,7 @@ public class PathManager {
     @NonNull
     public static String getExternalRoot(@NonNull String type) {
         @Nullable
-        File root = UtilX.application.getExternalFilesDir(type);
+        File root = UtilX.getApplication().getExternalFilesDir(type);
         if (root != null) {
             // /storage/emulated/0/Android/data/com.learn.test/files
             return root.getAbsolutePath();
@@ -142,7 +143,7 @@ public class PathManager {
     @NonNull
     public static String getLogDir() {
         return getDir("log") + File.separator +
-               UtilX.application.getPackageName();
+               UtilX.getApplication().getPackageName();
     }
 
     @NonNull
