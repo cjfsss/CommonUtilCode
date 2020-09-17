@@ -141,7 +141,7 @@ fun <T, VH : BaseViewHolder> BaseQuickAdapter<T, VH>.addChildLongClickViewIds(vi
     }
 }
 
-fun <T, VH : BaseViewHolder> BaseQuickAdapter<T, VH>?.clearAllChild() {
+fun <T, VH : BaseViewHolder> BaseQuickAdapter<T, VH>?.clearAllClick() {
     if (this == null) {
         return
     }
