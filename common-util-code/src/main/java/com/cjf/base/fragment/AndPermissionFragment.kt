@@ -49,6 +49,10 @@ abstract class AndPermissionFragment : BaseFragment() {
 
     abstract fun onGrantedSuccess()
 
+    open fun gotoSettingCancel() {
+
+    }
+
     /**
      * Display setting dialog.
      */
@@ -66,12 +70,9 @@ abstract class AndPermissionFragment : BaseFragment() {
                 .dismissOnBackPressed(false)
                 .dismissOnTouchOutside(false)
                 .asConfirm(
-                        ResUtils.getString(R.string.title),
-                        message,
-                        ResUtils.getString(R.string.cancel),
-                        ResUtils.getString(R.string.common_permission_authorization),
+                        ResUtils.getString(R.string.title), message, ResUtils.getString(R.string.cancel), ResUtils.getString(R.string.common_permission_authorization),
                         { setPermission() },
-                        {},
+                        { gotoSettingCancel() },
                         false
                 ).show()
     }

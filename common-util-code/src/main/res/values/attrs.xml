@@ -432,8 +432,9 @@
 
     <declare-styleable name="ExpandTextView">
         <attr name="textExpand" format="string" />
-        <attr name="textClose" format="string" />
-        <attr name="textExpandColor" format="reference|color" />
-        <attr name="textCloseColor" format="reference|color" />
+        <attr name="textCollapse" format="string" />
+        <attr name="textExpandColor" format="color" />
+        <attr name="textCollapseColor" format="color" />
+        <attr name="maxLineCount" format="integer" />
     </declare-styleable>
 </resources>

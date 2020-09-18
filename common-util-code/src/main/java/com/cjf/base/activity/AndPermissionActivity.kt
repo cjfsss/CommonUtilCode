@@ -32,16 +32,16 @@ abstract class AndPermissionActivity : BaseActivity() {
         this.permissions = permissions
         if (!AndPermission.hasPermissions(this, permissions)) {
             AndPermission.with(this)
-                .runtime()
-                .permission(*permissions)
-                .rationale(RuntimeRationale())
-                .onGranted {
-                    onGrantedSuccess()
-                }
-                .onDenied {
-                    showSettingDialog(this@AndPermissionActivity, permissions.asList())
-                }
-                .start()
+                    .runtime()
+                    .permission(*permissions)
+                    .rationale(RuntimeRationale())
+                    .onGranted {
+                        onGrantedSuccess()
+                    }
+                    .onDenied {
+                        showSettingDialog(this@AndPermissionActivity, permissions.asList())
+                    }
+                    .start()
         } else {
             onGrantedSuccess()
         }
@@ -49,31 +49,30 @@ abstract class AndPermissionActivity : BaseActivity() {
 
     abstract fun onGrantedSuccess()
 
+    open fun gotoSettingCancel() {
+
+    }
+
     /**
      * Display setting dialog.
      */
     private fun showSettingDialog(
-        context: Context,
-        permissions: List<String>
+            context: Context,
+            permissions: List<String>
     ) {
         val permissionNames: List<String> = Permission.transformText(context, permissions)
         val message: String = context.getString(
-            R.string.common_permission_always_failed,
-            TextUtils.join("\n", permissionNames)
+                R.string.common_permission_always_failed,
+                TextUtils.join("\n", permissionNames)
         )
-
         XPopup.Builder(context)
-            .dismissOnBackPressed(false)
-            .dismissOnTouchOutside(false)
-            .asConfirm(
-                ResUtils.getString(R.string.title),
-                message,
-                ResUtils.getString(R.string.cancel),
-                ResUtils.getString(R.string.common_permission_authorization),
-                {
-                    setPermission()
-                }, {}, false
-            ).show()
+                .dismissOnBackPressed(false)
+                .dismissOnTouchOutside(false)
+                .asConfirm(
+                        ResUtils.getString(R.string.title), message, ResUtils.getString(R.string.cancel), ResUtils.getString(R.string.common_permission_authorization),
+                        { setPermission() },
+                        { gotoSettingCancel() }, false
+                ).show()
     }
 
     /**
@@ -84,9 +83,9 @@ abstract class AndPermissionActivity : BaseActivity() {
     }
 
     override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?
+            requestCode: Int,
+            resultCode: Int,
+            data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
         onPermissionResult(requestCode)
