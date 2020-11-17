@@ -3,6 +3,7 @@ package com.cjf.ui.text;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.Editable;
@@ -12,8 +13,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.cjf.util.R;
 
@@ -31,6 +31,8 @@ public final class PasswordEditText extends RegexEditText
 
     private static final int TYPE_VISIBLE = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
     private static final int TYPE_INVISIBLE = InputType.TYPE_TEXT_VARIATION_PASSWORD;
+    private int mShowPwdResId;
+    private int mHidePwdResId;
 
     private Drawable mCurrentDrawable;
     private final Drawable mVisibleDrawable;
@@ -53,12 +55,21 @@ public final class PasswordEditText extends RegexEditText
     public PasswordEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        // Wrap the drawable so that it can be tinted pre Lollipop
-        mVisibleDrawable = DrawableCompat.wrap(ContextCompat.getDrawable(context, R.mipmap.x_et_svg_ic_hide_password_24dp));
-        mVisibleDrawable.setBounds(0, 0, mVisibleDrawable.getIntrinsicWidth(), mVisibleDrawable.getIntrinsicHeight());
-
-        mInvisibleDrawable = DrawableCompat.wrap(ContextCompat.getDrawable(context, R.mipmap.x_et_svg_ic_show_password_24dp));
-        mInvisibleDrawable.setBounds(0, 0, mInvisibleDrawable.getIntrinsicWidth(), mInvisibleDrawable.getIntrinsicHeight());
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PasswordEditText, defStyleAttr, 0);
+        try {
+            mShowPwdResId = typedArray.getResourceId(R.styleable.PasswordEditText_x_showPwdDrawable, -1);
+            mHidePwdResId = typedArray.getResourceId(R.styleable.PasswordEditText_x_hidePwdDrawable, -1);
+            if (mShowPwdResId == -1)
+                mShowPwdResId = R.mipmap.x_et_svg_ic_show_password_24dp;
+            if (mHidePwdResId == -1)
+                mHidePwdResId = R.mipmap.x_et_svg_ic_hide_password_24dp;
+            mVisibleDrawable = AppCompatResources.getDrawable(context, mHidePwdResId);
+            mInvisibleDrawable = AppCompatResources.getDrawable(context, mShowPwdResId);
+            mVisibleDrawable.setBounds(0, 0, mVisibleDrawable.getIntrinsicWidth(), mVisibleDrawable.getIntrinsicHeight());
+            mInvisibleDrawable.setBounds(0, 0, mInvisibleDrawable.getIntrinsicWidth(), mInvisibleDrawable.getIntrinsicHeight());
+        } finally {
+            typedArray.recycle();
+        }
 
         mCurrentDrawable = mVisibleDrawable;
 

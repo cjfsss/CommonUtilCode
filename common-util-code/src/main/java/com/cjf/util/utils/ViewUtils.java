@@ -1,7 +1,6 @@
 package com.cjf.util.utils;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Build;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -13,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * <p>Title: ViewUtils </p>
@@ -26,6 +27,24 @@ import androidx.annotation.NonNull;
 public class ViewUtils {
 
     private static final int KEY_OFFSET = -123;
+
+    private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
+
+    public static int generateViewId() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return View.generateViewId();
+        } else {
+            for (; ; ) {
+                final int result = sNextGeneratedId.get();
+                // aapt-generated IDs have the high byte nonzero; clamp to the range under that.
+                int newValue = result + 1;
+                if (newValue > 0x00FFFFFF) newValue = 1; // Roll over to 1, not 0.
+                if (sNextGeneratedId.compareAndSet(result, newValue)) {
+                    return result;
+                }
+            }
+        }
+    }
 
     /**
      * 设置输入内容只能为数字或者字母
@@ -49,6 +68,33 @@ public class ViewUtils {
         }
         for (View view : views) {
             view.setVisibility(visibility);
+        }
+    }
+
+    public static void gone(View... views) {
+        if (views == null) {
+            return;
+        }
+        for (View view : views) {
+            view.setVisibility(View.GONE);
+        }
+    }
+
+    public static void visible(View... views) {
+        if (views == null) {
+            return;
+        }
+        for (View view : views) {
+            view.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public static void invisible(View... views) {
+        if (views == null) {
+            return;
+        }
+        for (View view : views) {
+            view.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -83,6 +129,15 @@ public class ViewUtils {
         }
         for (TextView view : textView) {
             view.setHint("");
+        }
+    }
+
+    public final static void clearOnClickListener(View... views) {
+        if (views == null) {
+            return;
+        }
+        for (View view : views) {
+            view.setOnClickListener(null);
         }
     }
 
@@ -146,7 +201,7 @@ public class ViewUtils {
         }
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         layoutParams.setMargins(layoutParams.leftMargin + left, layoutParams.topMargin + top,
-                                layoutParams.rightMargin + right, layoutParams.bottomMargin + bottom);
+                layoutParams.rightMargin + right, layoutParams.bottomMargin + bottom);
         view.setTag(KEY_OFFSET, true);
     }
 

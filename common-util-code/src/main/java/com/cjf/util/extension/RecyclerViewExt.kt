@@ -40,7 +40,7 @@ fun RecyclerView.notifyChangedChecked() {
         // 延时递归处理。
         postDelayed({
             notifyChangedChecked()
-        }, 100)
+        }, 200)
     } else {
         adapter?.notifyDataSetChanged()
     }

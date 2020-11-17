@@ -16,16 +16,17 @@
         android:id="@+id/tvLeftText"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
+        android:layout_toRightOf="@+id/ivLeftImage"
         android:layout_height="match_parent"
         android:background="?selectableItemBackground"
         android:clickable="true"
         android:drawablePadding="2dp"
         android:gravity="center"
         android:minWidth="48dp"
+        android:visibility="gone"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:textSize="16sp"
-        android:visibility="gone" />
+        android:textSize="16sp"/>
 
     <com.cjf.ui.shape.ShapeTextView
         android:id="@+id/tvTitle"

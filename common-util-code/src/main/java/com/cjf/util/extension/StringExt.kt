@@ -86,6 +86,13 @@ fun String?.toTime(): String {
     return StringUtils.toTime(this)
 }
 
+fun String?.toTimeN(): String {
+    if (TextUtils.isEmpty(toNULL())) {
+        return "暂无"
+    }
+    return StringUtils.toTimeN(this)
+}
+
 fun String?.toNULL(): String? {
     if (TextUtils.isEmpty(this) || TextUtils.equals(this, "null")
             || TextUtils.equals(this, "NULL")

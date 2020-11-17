@@ -8,6 +8,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
@@ -17,6 +18,7 @@ import com.cjf.base.picture.PictureSelectorEngineImpl;
 import com.cjf.util.function.UtilFunction;
 import com.cjf.util.log.DefaultLogDelegateImpl;
 import com.cjf.util.log.LogX;
+import com.cjf.util.path.PathManager;
 import com.cjf.util.toast.DefaultToastDelegateImpl;
 import com.cjf.util.toast.ToastX;
 import com.cjf.util.utils.ResUtils;
@@ -62,6 +64,12 @@ public class UtilX {
         Utils.init(function.getApplication());
         LogX.setDelegate(new DefaultLogDelegateImpl());
         LogUtils.getConfig().setLog2FileSwitch(AppUtils.isAppDebug()).setGlobalTag("Code");
+        CrashUtils.init(PathManager.getLogDir(), new CrashUtils.OnCrashListener() {
+            @Override
+            public void onCrash(String crashInfo, Throwable e) {
+                LogX.printErrStackTrace("Crash", e, crashInfo);
+            }
+        });
         ToastX.setDelegete(new DefaultToastDelegateImpl());
         ToastUtils.setBgColor(ResUtils.getColor(R.color.black));
         ToastUtils.setMsgTextSize(16);

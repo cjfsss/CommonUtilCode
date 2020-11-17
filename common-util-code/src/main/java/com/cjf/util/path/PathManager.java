@@ -136,14 +136,18 @@ public class PathManager {
     }
 
     @NonNull
-    public static String getDataBaseDir() {
-        return getExternalRoot("database");
+    public static String getDataBaseDir(@NonNull String name) {
+        File databasePath = UtilX.getApplication().getDatabasePath(name);
+        if (databasePath != null) {
+            return databasePath.getAbsolutePath();
+        }
+        return getExternalRoot("database") + File.separator + name;
     }
 
     @NonNull
     public static String getLogDir() {
         return getDir("log") + File.separator +
-               UtilX.getApplication().getPackageName();
+                UtilX.getApplication().getPackageName();
     }
 
     @NonNull

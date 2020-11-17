@@ -3,17 +3,16 @@ package com.cjf.ui.text;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.cjf.util.R;
-
-import java.util.Objects;
 
 /**
  *    author : Android 轮子哥
@@ -41,8 +40,21 @@ public final class ClearEditText extends RegexEditText
     @SuppressLint("ClickableViewAccessibility")
     public ClearEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mClearDrawable = DrawableCompat.wrap(Objects.requireNonNull(ContextCompat.getDrawable(context, R.mipmap.ic_close_24dp)));
-        mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());
+
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ClearEditText, defStyleAttr, 0);
+        try {
+            int cdId = typedArray.getResourceId(R.styleable.ClearEditText_x_clearDrawable, -1);
+            if (cdId == -1)
+                cdId = R.mipmap.x_et_svg_ic_clear_24dp;
+            mClearDrawable = AppCompatResources.getDrawable(context, cdId);
+            if (mClearDrawable != null) {
+                mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());
+                if (cdId == R.mipmap.x_et_svg_ic_clear_24dp)
+                    DrawableCompat.setTint(mClearDrawable, getCurrentHintTextColor());
+            }
+        } finally {
+            typedArray.recycle();
+        }
         setDrawableVisible(false);
         super.setOnTouchListener(this);
         super.setOnFocusChangeListener(this);

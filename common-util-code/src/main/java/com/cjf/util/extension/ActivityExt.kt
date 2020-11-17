@@ -20,6 +20,10 @@ fun Fragment.getPosition(): Int {
     return arguments?.getInt("position", 0) ?: 0
 }
 
+fun Fragment.positionArg(position: Int, vararg params: Pair<String, Any?>): Fragment {
+    return position(position, params)
+}
+
 // 配置Fragment的下标
 fun Fragment.position(position: Int, bundle: Array<out Pair<String, Any?>>? = null): Fragment {
     val mutableList: MutableList<Pair<String, Any?>>? = arrayOf(Pair("position", position)).toMutableList()
@@ -29,12 +33,20 @@ fun Fragment.position(position: Int, bundle: Array<out Pair<String, Any?>>? = nu
     return bundle(mutableList?.toTypedArray())
 }
 
+fun Fragment.bundleArg(vararg params: Pair<String, Any?>): Fragment {
+    return bundle(params)
+}
+
 // 配置Fragment的参数
 fun Fragment.bundle(bundle: Array<out Pair<String, Any?>>? = null): Fragment {
     if (bundle != null) {
         arguments = Bundle(bundle.toBundle()!!)
     }
     return this
+}
+
+inline fun <reified T : Activity> Fragment.start(vararg params: Pair<String, Any?>) {
+    start<T>(params)
 }
 
 // 跳转到下一个Activity
@@ -60,6 +72,10 @@ inline fun <reified T> Fragment.start(bundle: Array<out Pair<String, Any?>>? = n
     }
 }
 
+inline fun <reified T : Activity> Fragment.startForResult(requestCode: Int = -1, vararg params: Pair<String, Any?>) {
+    startForResult<T>(params, requestCode)
+}
+
 // 跳转到下一个Activity
 inline fun <reified T> Fragment.startForResult(bundle: Array<out Pair<String, Any?>>? = null, requestCode: Int = -1, flag: Int = -1) {
     var startActivity: Context? = activity
@@ -83,6 +99,9 @@ inline fun <reified T> Fragment.startForResult(bundle: Array<out Pair<String, An
     }
 }
 
+inline fun <reified T : Activity> Activity.start(vararg params: Pair<String, Any?>) {
+    start<T>(params)
+}
 
 inline fun <reified T> Activity.start(bundle: Array<out Pair<String, Any?>>? = null, flag: Int = -1) {
     val intent = Intent(this, T::class.java).apply {
@@ -95,6 +114,10 @@ inline fun <reified T> Activity.start(bundle: Array<out Pair<String, Any?>>? = n
         if (bundle != null) putExtras(bundle.toBundle()!!)
     }
     startActivity(intent)
+}
+
+inline fun <reified T : Activity> Activity.startForResult(requestCode: Int = -1, vararg params: Pair<String, Any?>) {
+    startForResult<T>(params, requestCode)
 }
 
 inline fun <reified T> Activity.startForResult(bundle: Array<out Pair<String, Any?>>? = null, requestCode: Int = -1, flag: Int = -1) {
@@ -110,6 +133,10 @@ inline fun <reified T> Activity.startForResult(bundle: Array<out Pair<String, An
     startActivityForResult(intent, requestCode)
 }
 
+inline fun <reified T : Activity> Context.start(vararg params: Pair<String, Any?>) {
+    start<T>(params)
+}
+
 inline fun <reified T> Context.start(bundle: Array<out Pair<String, Any?>>? = null, flag: Int = -1) {
     val intent = Intent(this, T::class.java).apply {
         if (flag != -1) {
@@ -121,6 +148,10 @@ inline fun <reified T> Context.start(bundle: Array<out Pair<String, Any?>>? = nu
         if (bundle != null) putExtras(bundle.toBundle()!!)
     }
     startActivity(intent)
+}
+
+inline fun <reified T : Activity> View.startActivity(vararg params: Pair<String, Any?>) {
+    startActivity<T>(params)
 }
 
 inline fun <reified T> View.startActivity(bundle: Array<out Pair<String, Any?>>? = null, flag: Int = -1) {

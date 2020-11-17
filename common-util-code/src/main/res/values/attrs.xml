@@ -88,6 +88,21 @@
     <attr name="x_togglePwdDrawableEnable" format="boolean" />
     <attr name="x_pattern" format="string" />
 
+    <declare-styleable name="ClearEditText">
+        <attr name="x_clearDrawable" />
+    </declare-styleable>
+    <declare-styleable name="ClearTextInputEditText">
+        <attr name="x_clearDrawable" />
+    </declare-styleable>
+    <declare-styleable name="ClearAutoCompleteTextView">
+        <attr name="x_clearDrawable" />
+    </declare-styleable>
+
+    <declare-styleable name="PasswordEditText">
+        <attr name="x_showPwdDrawable"  />
+        <attr name="x_hidePwdDrawable"  />
+    </declare-styleable>
+
     <!-- 正则输入限制 -->
     <declare-styleable name="XEditText">
         <attr name="x_separator"/>
@@ -435,6 +450,7 @@
         <attr name="textCollapse" format="string" />
         <attr name="textExpandColor" format="color" />
         <attr name="textCollapseColor" format="color" />
+        <attr name="textStartColor" format="color" />
         <attr name="maxLineCount" format="integer" />
     </declare-styleable>
 </resources>

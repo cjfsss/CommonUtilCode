@@ -2,9 +2,11 @@ package com.cjf.util.extension
 
 import android.app.Activity
 import android.text.TextUtils
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.BarUtils
 import com.cjf.util.listener.OnCancelListener
 import com.cjf.util.listener.OnConfirmListener
 import com.cjf.util.utils.ResUtils
@@ -24,6 +26,15 @@ import com.lxj.xpopup.impl.ConfirmPopupView
 
 /****************************************** 便捷方法 ****************************************/
 /****************************************** 便捷方法  */
+
+fun XPopup.Builder.ofNav(activity: Activity): XPopup.Builder {
+    var navBarHeight = 0;
+    if (BarUtils.isNavBarVisible(activity)) {
+        navBarHeight = -BarUtils.getNavBarHeight();
+    }
+    return this.offsetY(navBarHeight);
+}
+
 /**
  * 显示确认和取消对话框
  *

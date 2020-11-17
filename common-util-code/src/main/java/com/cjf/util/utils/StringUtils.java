@@ -75,6 +75,7 @@ public class StringUtils {
     public static String getUUID() {
         return UUID.randomUUID().toString();
     }
+
     @NonNull
     public static String getyyyyMMdd() {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
@@ -87,10 +88,12 @@ public class StringUtils {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMddHHmmssSSSS");
         return formatDate.format(new Date());
     }
+
     @NonNull
     public static String getUUIDTimeMD5() {
         return md5ToString(getUUID(), getyyyyMMddHHmmssSSSS());
     }
+
     @NonNull
     public static String md5ToString(@NonNull String... targets) {
         StringBuilder targetBuilder = new StringBuilder();
@@ -121,6 +124,27 @@ public class StringUtils {
         return time;
     }
 
+    /**
+     * 确定时间中的T和.后面的数字
+     *
+     * @param time 时间
+     */
+    @NonNull
+    public static String toTimeN(@Nullable String time) {
+        String toTime = toTime(time);
+        if (!TextUtils.isEmpty(toTime)) {
+            if (!toTime.contains("/")) {
+                return toTime;
+            }
+            toTime = toTime.replace("/", "-");
+            if (!toTime.contains(".")) {
+                return toTime;
+            }
+            return toTime.substring(0, toTime.lastIndexOf("."));
+        }
+        return toTime;
+    }
+
     public static String toStringZero(String value) {
         if (TextUtils.isEmpty(value)) {
             return "0";
@@ -131,6 +155,7 @@ public class StringUtils {
         }
         return value;
     }
+
     /**
      * 获取已,隔开的第一个
      */

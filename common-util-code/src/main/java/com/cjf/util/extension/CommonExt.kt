@@ -139,8 +139,7 @@ fun View.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
 fun Array<out Pair<String, Any?>>.toBundle(): Bundle? {
     return Bundle().apply {
         forEach { it ->
-            val value = it.second
-            when (value) {
+            when (val value = it.second) {
                 null -> putSerializable(it.first, null as Serializable?)
                 is Int -> putInt(it.first, value)
                 is Long -> putLong(it.first, value)

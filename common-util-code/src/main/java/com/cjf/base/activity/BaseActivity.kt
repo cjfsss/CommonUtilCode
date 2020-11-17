@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.cjf.base.IViewLoading
+import com.cjf.base.picture.GlideEngine
+import com.cjf.thread.extension.postOnMain
 import com.cjf.util.extension.clearAllClick
+import com.cjf.util.listener.OnCompressToLubanResultListener
+import com.cjf.util.utils.LubanCompressManager
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.impl.LoadingPopupView
 
@@ -51,7 +55,9 @@ abstract class BaseActivity : AppCompatActivity(), IViewLoading {
     }
 
     override fun hideLoading() {
-        mProgressDialog.dismiss()
+        postOnMain {
+            mProgressDialog.dismiss()
+        }
     }
 
     override fun onDestroy() {
@@ -63,5 +69,15 @@ abstract class BaseActivity : AppCompatActivity(), IViewLoading {
         adapterList.clear()
         hideLoading()
         super.onDestroy()
+    }
+
+    open fun compressImagePath(pathList: List<String>, listener: OnCompressToLubanResultListener) {
+        LubanCompressManager.builder()
+                .imageEngine(GlideEngine.create())
+                .isCompress(true)// 是否压缩
+                .cutOutQuality(80)// 裁剪输出质量 默认100
+                .minimumCompressSize(500)// 小于多少kb的图片不压缩
+                .build(listener)
+                .compressImagePath(this, pathList)
     }
 }

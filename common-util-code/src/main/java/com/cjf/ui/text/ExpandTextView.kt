@@ -8,12 +8,14 @@ import android.os.Build
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import com.cjf.util.R
 import com.cjf.util.UtilX
+import com.cjf.util.utils.ResUtils
 
 /**
  * <p>Title: ExpandTextView </p>
@@ -32,7 +34,13 @@ class ExpandTextView : AppCompatTextView {
     var mCallback: ExpandCallback? = null
 
     /** 源文字内容 */
-    var mText: String? = ""
+    var mText: CharSequence? = ""
+
+    /** 源文字所有内容 */
+    var mTextAll: String? = ""
+
+    /** 开头文字内容 */
+    var mTextStart: CharSequence? = ""
 
     /** 最多展示的行数 */
     var maxLineCount = 3
@@ -51,6 +59,9 @@ class ExpandTextView : AppCompatTextView {
 
     /** 收起文案文字颜色 */
     var collapseTextColor: Int = Color.parseColor("#1C7FFD")
+
+    /** 开始文字颜色 */
+    var textStartColor: Int = ResUtils.getColor(R.color.design_txt_gray)
 
     /**是否支持收起功能*/
     var collapseEnable = true
@@ -78,6 +89,7 @@ class ExpandTextView : AppCompatTextView {
             if (array.hasValue(R.styleable.ExpandTextView_textCollapse)) {
                 collapseText = array.getString(R.styleable.ExpandTextView_textCollapse) ?: "[收起]"
             }
+            textStartColor = array.getColor(R.styleable.ExpandTextView_textStartColor, ResUtils.getColor(R.color.design_txt_gray))
             expandTextColor = array.getColor(R.styleable.ExpandTextView_textExpandColor, UtilX.getPrimaryColor())
             collapseTextColor = array.getColor(R.styleable.ExpandTextView_textCollapseColor, UtilX.getPrimaryColor())
             if (array.hasValue(R.styleable.ExpandTextView_maxLineCount)) {
@@ -92,15 +104,15 @@ class ExpandTextView : AppCompatTextView {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         // 文字计算辅助工具
-        if (mText.isNullOrEmpty()) {
+        if (mTextAll.isNullOrEmpty()) {
             setMeasuredDimension(measuredWidth, measuredHeight)
         }
         //StaticLayout对象
         val sl = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             StaticLayout.Builder.obtain(
-                    mText ?: "",
+                    mTextAll ?: "",
                     0,
-                    mText?.length ?: 0,
+                    mTextAll?.length ?: 0,
                     paint,
                     measuredWidth - paddingLeft - paddingRight
             ).apply {
@@ -108,7 +120,7 @@ class ExpandTextView : AppCompatTextView {
             }.build()
         } else {
             StaticLayout(
-                    mText, paint, measuredWidth - paddingLeft - paddingRight,
+                    mTextAll, paint, measuredWidth - paddingLeft - paddingRight,
                     Layout.Alignment.ALIGN_CENTER, 1f, 0f,
                     true
             )
@@ -119,14 +131,23 @@ class ExpandTextView : AppCompatTextView {
         //总行数大于最大行数
         if (lineCount > maxLineCount) {
             if (expandState) {
-                text = mText
+                text = mTextAll
                 //是否支持收起功能
                 if (collapseEnable) {
                     // 收起文案和源文字组成的新的文字
-                    val newEndLineText = mText + collapseText
+                    val newEndLineText = mTextAll + collapseText
                     //收起文案和源文字组成的新的文字
-                    val spannableString = SpannableString(newEndLineText)
+                    val spannableString = SpannableStringBuilder(newEndLineText)
                             .apply {
+                                //给开始文字设成蓝色
+                                if (mTextStart != null) {
+                                    setSpan(
+                                            ForegroundColorSpan(textStartColor),
+                                            0,
+                                            mTextAll?.indexOf(mTextStart!!.toString())!! + mTextStart!!.length,
+                                            Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                                    )
+                                }
                                 //给收起设成监听
                                 setSpan(
                                         object : ClickableSpan() {
@@ -135,6 +156,7 @@ class ExpandTextView : AppCompatTextView {
                                                     mCallback!!.onCollapseClick()
                                                 }
                                             }
+
                                             override fun updateDrawState(ds: TextPaint) {
                                                 ds.color = collapseTextColor
                                                 ds.isUnderlineText = false
@@ -153,13 +175,6 @@ class ExpandTextView : AppCompatTextView {
                                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                                     )
                                 }
-                                //给收起设成蓝色
-//                                setSpan(
-//                                        ForegroundColorSpan(collapseTextColor),
-//                                        newEndLineText.length - collapseText.length,
-//                                        newEndLineText.length,
-//                                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//                                )
                             }
                     text = spannableString
                 }
@@ -171,7 +186,7 @@ class ExpandTextView : AppCompatTextView {
                 // 找出显示最后一行的文字
                 val start = sl.getLineStart(lineCount - 1)
                 val end = sl.getLineEnd(lineCount - 1)
-                val lineText = mText?.substring(start, end) ?: ""
+                val lineText = mTextAll?.substring(start, end) ?: ""
                 // 将第最后一行最后的文字替换为 ellipsizeText和expandText
                 var endIndex = 0
                 for (i in lineText.length - 1 downTo 0) {
@@ -183,13 +198,22 @@ class ExpandTextView : AppCompatTextView {
                     }
                 }
                 // 新的文字
-                val newEndLineText = (mText?.substring(0, start) ?: "") + lineText.substring(
+                val newEndLineText = (mTextAll?.substring(0, start) ?: "") + lineText.substring(
                         0,
                         endIndex
                 ) + ellipsizeText + expandText
                 //全部文字
-                val spannableString = SpannableString(newEndLineText).apply {
+                val spannableString = SpannableStringBuilder(newEndLineText).apply {
                     //给查看全部设成监听
+                    //给开始文字设成蓝色
+                    if (mTextStart != null) {
+                        setSpan(
+                                ForegroundColorSpan(textStartColor),
+                                0,
+                                mTextAll?.indexOf(mTextStart!!.toString())!! + mTextStart!!.length,
+                                Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                        )
+                    }
                     setSpan(
                             object : ClickableSpan() {
                                 override fun onClick(widget: View) {
@@ -197,6 +221,7 @@ class ExpandTextView : AppCompatTextView {
                                         mCallback!!.onExpandClick()
                                     }
                                 }
+
                                 override fun updateDrawState(ds: TextPaint) {
                                     ds.color = expandTextColor
                                     ds.isUnderlineText = false
@@ -214,21 +239,26 @@ class ExpandTextView : AppCompatTextView {
                                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                         )
                     }
-                    //给查看全部设成颜色
-//                    setSpan(
-//                            ForegroundColorSpan(expandTextColor),
-//                            newEndLineText.length - expandText.length,
-//                            newEndLineText.length,
-//                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//                    )
                 }
-
                 // 最终显示的文字
                 text = spannableString
                 mCallback?.onCollapse()
             }
         } else {
-            text = mText
+            //收起文案和源文字组成的新的文字
+            val spannableString = SpannableStringBuilder(mTextAll)
+                    .apply {
+                        //给开始文字设成蓝色
+                        if (mTextStart != null) {
+                            setSpan(
+                                    ForegroundColorSpan(textStartColor),
+                                    0,
+                                    mTextAll?.indexOf(mTextStart!!.toString())!! + mTextStart!!.length,
+                                    Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                            )
+                        }
+                    }
+            text = spannableString
             mCallback?.onLoss()
 
         }
@@ -249,12 +279,24 @@ class ExpandTextView : AppCompatTextView {
      * @param expanded true：展开，false：收起
      * @param callback
      */
-    fun setContentText(text: String, expanded: Boolean = false, callback: ExpandCallback = DefaultExpandCallback(this)) {
+    fun setContentText(textStart: CharSequence, text: CharSequence, expanded: Boolean = false, callback: ExpandCallback = DefaultExpandCallback(this)) {
+        mTextStart = textStart;
         mText = text
+        mTextAll = textStart.toString() + text.toString()
         expandState = expanded
         mCallback = callback
         // 设置要显示的文字，这一行必须要，否则 onMeasure 宽度测量不正确
-        setText(text)
+        setText(mTextAll)
+    }
+
+    /**
+     * 设置要显示的文字以及状态
+     * @param text
+     * @param expanded true：展开，false：收起
+     * @param callback
+     */
+    fun setContentText(text: CharSequence, expanded: Boolean = false, callback: ExpandCallback = DefaultExpandCallback(this)) {
+        setContentText("", text, expanded, callback)
     }
 
     /**
