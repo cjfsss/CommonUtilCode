@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.listener.OnItemChildLongClickListener
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.cjf.ui.scroll.HVScrollView
 
 /**
  * <p>Title: Adapter </p>
@@ -18,6 +19,17 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
  * @date : 2020/9/3 13:24
  * @version : 1.0
  */
+
+fun <T, VH : BaseViewHolder> BaseQuickAdapter<T, VH>.scrollTo(id: Int, x: Int, y: Int) {
+    for (i in 0 until itemCount) {
+        val viewByPosition =
+                getViewByPosition(i, id)
+                        ?: return
+        if (viewByPosition is HVScrollView) {
+            viewByPosition.scrollTo(x, y)
+        }
+    }
+}
 
 /**
  * 设置点击监听, 并实现事件节流

@@ -31,7 +31,7 @@ import com.lxj.xpopup.interfaces.OnCancelListener
  * @version : 1.0
  */
 open class ChipGroupMultiLevelSingleDownPopup(context: Context) : PartShadowPopupView(context),
-    View.OnClickListener {
+        View.OnClickListener {
 
     private var cancelListener: OnCancelListener? = null
     private var confirmListener: OnSelectMultiLevelListener? = null
@@ -208,9 +208,9 @@ open class ChipGroupMultiLevelSingleDownPopup(context: Context) : PartShadowPopu
             }
             // 切换到第三等级
             if (options1Items.isNotEmpty() && currentOptions0Position < options1Items.size
-                && options1Items[currentOptions0Position].isNotEmpty()
-                && currentOptions1Position < options1Items[currentOptions0Position].size
-                && options1Items[currentOptions0Position][currentOptions1Position].isNotEmpty()
+                    && options1Items[currentOptions0Position].isNotEmpty()
+                    && currentOptions1Position < options1Items[currentOptions0Position].size
+                    && options1Items[currentOptions0Position][currentOptions1Position].isNotEmpty()
             ) {
                 loadData(
                         options1Items[currentOptions0Position],
@@ -223,11 +223,11 @@ open class ChipGroupMultiLevelSingleDownPopup(context: Context) : PartShadowPopu
             }
             // 切换到第四等级
             if (options2Items.isNotEmpty() && currentOptions0Position < options2Items.size
-                && options2Items[currentOptions0Position].isNotEmpty()
-                && currentOptions1Position < options2Items[currentOptions0Position].size
-                && options2Items[currentOptions0Position][currentOptions1Position].isNotEmpty()
-                && currentOptions2Position < options2Items[currentOptions0Position][currentOptions1Position].size
-                && options2Items[currentOptions0Position][currentOptions1Position][currentOptions2Position].isNotEmpty()
+                    && options2Items[currentOptions0Position].isNotEmpty()
+                    && currentOptions1Position < options2Items[currentOptions0Position].size
+                    && options2Items[currentOptions0Position][currentOptions1Position].isNotEmpty()
+                    && currentOptions2Position < options2Items[currentOptions0Position][currentOptions1Position].size
+                    && options2Items[currentOptions0Position][currentOptions1Position][currentOptions2Position].isNotEmpty()
             ) {
                 loadData(
                         options2Items[currentOptions0Position][currentOptions1Position],
@@ -240,13 +240,13 @@ open class ChipGroupMultiLevelSingleDownPopup(context: Context) : PartShadowPopu
             }
             // 切换到第四等级
             if (options3Items.isNotEmpty() && currentOptions0Position < options3Items.size
-                && options3Items[currentOptions0Position].isNotEmpty()
-                && currentOptions1Position < options3Items[currentOptions0Position].size
-                && options3Items[currentOptions0Position][currentOptions1Position].isNotEmpty()
-                && currentOptions2Position < options3Items[currentOptions0Position][currentOptions1Position].size
-                && options3Items[currentOptions0Position][currentOptions1Position][currentOptions2Position].isNotEmpty()
-                && currentOptions3Position < options3Items[currentOptions0Position][currentOptions1Position][currentOptions2Position].size
-                && options3Items[currentOptions0Position][currentOptions1Position][currentOptions2Position][currentOptions3Position].isNotEmpty()
+                    && options3Items[currentOptions0Position].isNotEmpty()
+                    && currentOptions1Position < options3Items[currentOptions0Position].size
+                    && options3Items[currentOptions0Position][currentOptions1Position].isNotEmpty()
+                    && currentOptions2Position < options3Items[currentOptions0Position][currentOptions1Position].size
+                    && options3Items[currentOptions0Position][currentOptions1Position][currentOptions2Position].isNotEmpty()
+                    && currentOptions3Position < options3Items[currentOptions0Position][currentOptions1Position][currentOptions2Position].size
+                    && options3Items[currentOptions0Position][currentOptions1Position][currentOptions2Position][currentOptions3Position].isNotEmpty()
             ) {
                 loadData(
                         options3Items[currentOptions0Position][currentOptions1Position][currentOptions2Position],
@@ -262,12 +262,12 @@ open class ChipGroupMultiLevelSingleDownPopup(context: Context) : PartShadowPopu
     private fun gotoNextNode() {
         if (currentLevel == 0) {
             // 没有选择，或者选择全部的时候,不进入下一级
-            if (currentOptions0Position == -1 ) {
+            if (currentOptions0Position == -1) {
                 return
             }
             // 切换到第二等级
             if (options1Items.isNotEmpty() && currentOptions0Position < options1Items.size
-                && options1Items[currentOptions0Position].isNotEmpty()
+                    && options1Items[currentOptions0Position].isNotEmpty()
             ) {
                 currentLevel = 1
                 loadData(options1Items[currentOptions0Position], currentOptions1Position)
@@ -279,9 +279,9 @@ open class ChipGroupMultiLevelSingleDownPopup(context: Context) : PartShadowPopu
             }
             // 切换到第三等级
             if (options2Items.isNotEmpty() && currentOptions0Position < options2Items.size
-                && options2Items[currentOptions0Position].isNotEmpty()
-                && currentOptions1Position < options2Items[currentOptions0Position].size
-                && options2Items[currentOptions0Position][currentOptions1Position].isNotEmpty()
+                    && options2Items[currentOptions0Position].isNotEmpty()
+                    && currentOptions1Position < options2Items[currentOptions0Position].size
+                    && options2Items[currentOptions0Position][currentOptions1Position].isNotEmpty()
             ) {
                 currentLevel = 2
                 loadData(
@@ -291,16 +291,16 @@ open class ChipGroupMultiLevelSingleDownPopup(context: Context) : PartShadowPopu
             }
         } else if (currentLevel == 2) {
             // 没有选择，或者选择全部的时候,不进入下一级
-            if (currentOptions2Position == -1 ) {
+            if (currentOptions2Position == -1) {
                 return
             }
             // 切换到第四等级
             if (options3Items.isNotEmpty() && currentOptions0Position < options3Items.size
-                && options3Items[currentOptions0Position].isNotEmpty()
-                && currentOptions1Position < options3Items[currentOptions0Position].size
-                && options3Items[currentOptions0Position][currentOptions1Position].isNotEmpty()
-                && currentOptions2Position < options3Items[currentOptions0Position][currentOptions1Position].size
-                && options3Items[currentOptions0Position][currentOptions1Position][currentOptions2Position].isNotEmpty()
+                    && options3Items[currentOptions0Position].isNotEmpty()
+                    && currentOptions1Position < options3Items[currentOptions0Position].size
+                    && options3Items[currentOptions0Position][currentOptions1Position].isNotEmpty()
+                    && currentOptions2Position < options3Items[currentOptions0Position][currentOptions1Position].size
+                    && options3Items[currentOptions0Position][currentOptions1Position][currentOptions2Position].isNotEmpty()
             ) {
                 currentLevel = 3
                 loadData(
@@ -310,18 +310,18 @@ open class ChipGroupMultiLevelSingleDownPopup(context: Context) : PartShadowPopu
             }
         } else if (currentLevel == 3) {
             // 没有选择，或者选择全部的时候,不进入下一级
-            if (currentOptions3Position == -1 ) {
+            if (currentOptions3Position == -1) {
                 return
             }
             // 切换到第四等级
             if (options4Items.isNotEmpty() && currentOptions0Position < options4Items.size
-                && options4Items[currentOptions0Position].isNotEmpty()
-                && currentOptions1Position < options4Items[currentOptions0Position].size
-                && options4Items[currentOptions0Position][currentOptions1Position].isNotEmpty()
-                && currentOptions2Position < options4Items[currentOptions0Position][currentOptions1Position].size
-                && options4Items[currentOptions0Position][currentOptions1Position][currentOptions2Position].isNotEmpty()
-                && currentOptions3Position < options4Items[currentOptions0Position][currentOptions1Position][currentOptions2Position].size
-                && options4Items[currentOptions0Position][currentOptions1Position][currentOptions2Position][currentOptions3Position].isNotEmpty()
+                    && options4Items[currentOptions0Position].isNotEmpty()
+                    && currentOptions1Position < options4Items[currentOptions0Position].size
+                    && options4Items[currentOptions0Position][currentOptions1Position].isNotEmpty()
+                    && currentOptions2Position < options4Items[currentOptions0Position][currentOptions1Position].size
+                    && options4Items[currentOptions0Position][currentOptions1Position][currentOptions2Position].isNotEmpty()
+                    && currentOptions3Position < options4Items[currentOptions0Position][currentOptions1Position][currentOptions2Position].size
+                    && options4Items[currentOptions0Position][currentOptions1Position][currentOptions2Position][currentOptions3Position].isNotEmpty()
             ) {
                 currentLevel = 4
                 loadData(
@@ -378,46 +378,46 @@ open class ChipGroupMultiLevelSingleDownPopup(context: Context) : PartShadowPopu
                 nameList.add(options0Items[currentOptions0Position])
             }
             if (currentOptions0Position != -1
-                && currentOptions0Position < options1Items.size
-                && currentOptions1Position != -1
-                && currentOptions1Position < options1Items[currentOptions0Position].size
+                    && currentOptions0Position < options1Items.size
+                    && currentOptions1Position != -1
+                    && currentOptions1Position < options1Items[currentOptions0Position].size
             ) {
                 nameList.add(options1Items[currentOptions0Position][currentOptions1Position])
             }
             if (currentOptions0Position != -1
-                && currentOptions0Position < options2Items.size
-                && currentOptions1Position != -1
-                && currentOptions1Position < options2Items[currentOptions0Position].size
-                && currentOptions2Position != -1
-                && currentOptions2Position < options2Items[currentOptions0Position][currentOptions1Position].size
+                    && currentOptions0Position < options2Items.size
+                    && currentOptions1Position != -1
+                    && currentOptions1Position < options2Items[currentOptions0Position].size
+                    && currentOptions2Position != -1
+                    && currentOptions2Position < options2Items[currentOptions0Position][currentOptions1Position].size
             ) {
                 nameList.add(options2Items[currentOptions0Position][currentOptions1Position][currentOptions2Position])
             }
             if (currentOptions0Position != -1
-                && currentOptions0Position < options3Items.size
-                && currentOptions1Position != -1
-                && currentOptions1Position < options3Items[currentOptions0Position].size
-                && currentOptions2Position != -1
-                && currentOptions2Position < options3Items[currentOptions0Position][currentOptions1Position].size
-                && currentOptions3Position != -1
-                && currentOptions3Position < options3Items[currentOptions0Position][currentOptions1Position][currentOptions3Position].size
+                    && currentOptions0Position < options3Items.size
+                    && currentOptions1Position != -1
+                    && currentOptions1Position < options3Items[currentOptions0Position].size
+                    && currentOptions2Position != -1
+                    && currentOptions2Position < options3Items[currentOptions0Position][currentOptions1Position].size
+                    && currentOptions3Position != -1
+                    && currentOptions3Position < options3Items[currentOptions0Position][currentOptions1Position][currentOptions3Position].size
             ) {
                 nameList.add(options3Items[currentOptions0Position][currentOptions1Position][currentOptions2Position][currentOptions3Position])
             }
             if (currentOptions0Position != -1
-                && currentOptions0Position < options4Items.size
-                && currentOptions1Position != -1
-                && currentOptions1Position < options4Items[currentOptions0Position].size
-                && currentOptions2Position != -1
-                && currentOptions2Position < options4Items[currentOptions0Position][currentOptions1Position].size
-                && currentOptions3Position != -1
-                && currentOptions3Position < options4Items[currentOptions0Position][currentOptions1Position][currentOptions3Position].size
-                && currentOptions4Position != -1
-                && currentOptions4Position < options4Items[currentOptions0Position][currentOptions1Position][currentOptions3Position][currentOptions4Position].size
+                    && currentOptions0Position < options4Items.size
+                    && currentOptions1Position != -1
+                    && currentOptions1Position < options4Items[currentOptions0Position].size
+                    && currentOptions2Position != -1
+                    && currentOptions2Position < options4Items[currentOptions0Position][currentOptions1Position].size
+                    && currentOptions3Position != -1
+                    && currentOptions3Position < options4Items[currentOptions0Position][currentOptions1Position][currentOptions3Position].size
+                    && currentOptions4Position != -1
+                    && currentOptions4Position < options4Items[currentOptions0Position][currentOptions1Position][currentOptions3Position][currentOptions4Position].size
             ) {
                 nameList.add(options4Items[currentOptions0Position][currentOptions1Position][currentOptions2Position][currentOptions3Position][currentOptions4Position])
             }
-            confirmListener?.onSelect(nameList, positionList, currentLevel)
+            confirmListener?.onSelect(this, nameList, positionList, currentLevel)
             if (popupInfo.autoDismiss) dismiss()
         }
     }

@@ -2,6 +2,8 @@ package com.cjf.ui.popup.chip;
 
 import androidx.annotation.NonNull;
 
+import com.lxj.xpopup.core.BasePopupView;
+
 import java.util.List;
 
 /**
@@ -15,5 +17,5 @@ import java.util.List;
  */
 public interface OnSelectMultiLevelListener {
 
-    void onSelect(@NonNull List<String> selectList, @NonNull List<Integer> selectPositionList, int level);
+    void onSelect(BasePopupView popupView, @NonNull List<String> selectList, @NonNull List<Integer> selectPositionList, int level);
 }

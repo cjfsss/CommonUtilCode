@@ -1,7 +1,8 @@
-package com.cjf.util.utils;
+package com.cjf.base.location;
 
 import android.text.TextUtils;
 
+import com.cjf.base.location.LatLngSource;
 
 
 /**
@@ -13,7 +14,7 @@ import android.text.TextUtils;
  * @version : 1.0
  * @date : 2020/3/6 14:57
  */
-public class LatLogUtils {
+public class LatLngUtils {
 
     /***
      * 将点位截取小数点前6位
@@ -118,4 +119,25 @@ public class LatLogUtils {
         return longitude.matches(checkLongitude) && latitude.matches(checkLatitude);
     }
 
+    /**
+     * 获取经纬度的中心点
+     *
+     * @return
+     */
+    public static LatLngSource getCenter(LatLngSource northeast, LatLngSource southwest) {
+        double lat = (northeast.getLatitude() - southwest.getLatitude()) / 2.0D + southwest.getLatitude();
+        double lng = (northeast.getLongitude() - southwest.getLongitude()) / 2.0D + southwest.getLongitude();
+        return new LatLngSource(lat, lng);
+    }
+
+    /**
+     * 获取经纬度的中心点
+     *
+     * @return
+     */
+    public static double[] getCenter(double northeastLongitude, double northeastLatitude, double southwestLongitude, double southwestLatitude) {
+        double lat = (northeastLatitude - southwestLatitude) / 2.0D + southwestLatitude;
+        double lng = (northeastLongitude - southwestLongitude) / 2.0D + southwestLongitude;
+        return new double[]{lng, lat};
+    }
 }

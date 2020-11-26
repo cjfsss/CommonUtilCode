@@ -1,14 +1,17 @@
 package com.cjf.base.fragment
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ActivityUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.cjf.base.IViewLoading
 import com.cjf.base.picture.GlideEngine
+import com.cjf.base.view.IFragmentActivity
+import com.cjf.base.view.IViewLoading
 import com.cjf.thread.extension.postOnMain
 import com.cjf.util.extension.clearAllClick
 import com.cjf.util.listener.OnCompressToLubanResultListener
@@ -20,10 +23,12 @@ import com.lxj.xpopup.impl.LoadingPopupView
  * Description:
  * Create by dance, at 2019/5/16
  */
-abstract class BaseFragment : Fragment(), IViewLoading {
+abstract class BaseFragment : Fragment(), IFragmentActivity, IViewLoading {
 
-    private val mProgressDialog: LoadingPopupView by lazy {
-        XPopup.Builder(activity).asLoading()
+    private var mProgressDialog: LoadingPopupView? = null
+
+    private val mXPopupBuilder: XPopup.Builder by lazy {
+        XPopup.Builder(getBaseActivity())
     }
 
     private val adapterList by lazy {
@@ -35,35 +40,41 @@ abstract class BaseFragment : Fragment(), IViewLoading {
         return adapter
     }
 
-//    protected fun <T, VH : BaseViewHolder> bindAdapter(adapter: BaseQuickAdapter<T, VH>):
-//            BaseQuickAdapter<T, VH> {
-//        adapterList.add(adapter)
-//        return adapter
-//    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(getLayoutId(), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
-        initData()
+        initView(view, savedInstanceState)
+        initData(view, savedInstanceState)
     }
 
-    protected abstract fun getLayoutId(): Int
+    /**
+     * 获取Bundle
+     *
+     * @return 返回Intent中的Bundle
+     */
+    override fun getBundle(): Bundle? {
+        return arguments
+    }
 
-    protected abstract fun initView()
+    override fun getBaseActivity(): Activity? {
+        if (activity == null) {
+            return ActivityUtils.getTopActivity()
+        }
+        return activity
+    }
 
-    protected abstract fun initData()
-
-    override fun showLoading(title: String) {
-        mProgressDialog.setTitle(title)?.show()
+    override fun showLoading(title: String, isDismissOnBackPressed: Boolean, isDismissOnTouchOutside: Boolean) {
+        mProgressDialog = mXPopupBuilder.dismissOnBackPressed(isDismissOnBackPressed)
+                .dismissOnTouchOutside(isDismissOnTouchOutside).asLoading()
+        mProgressDialog?.setTitle(title)?.show()
     }
 
     override fun hideLoading() {
         postOnMain {
-            mProgressDialog.dismiss()
+            mProgressDialog?.dismiss()
         }
     }
 

@@ -1,11 +1,13 @@
 package com.cjf.base.activity
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.cjf.base.IViewLoading
 import com.cjf.base.picture.GlideEngine
+import com.cjf.base.view.IFragmentActivity
+import com.cjf.base.view.IViewLoading
 import com.cjf.thread.extension.postOnMain
 import com.cjf.util.extension.clearAllClick
 import com.cjf.util.listener.OnCompressToLubanResultListener
@@ -17,10 +19,12 @@ import com.lxj.xpopup.impl.LoadingPopupView
  * Description:
  * Create by dance, at 2019/5/16
  */
-abstract class BaseActivity : AppCompatActivity(), IViewLoading {
+abstract class BaseActivity : AppCompatActivity(), IFragmentActivity, IViewLoading {
 
-    private val mProgressDialog: LoadingPopupView by lazy {
-        XPopup.Builder(this).asLoading()
+    private var mProgressDialog: LoadingPopupView? = null
+
+    private val mXPopupBuilder: XPopup.Builder by lazy {
+        XPopup.Builder(this)
     }
 
     private val adapterList by lazy {
@@ -40,23 +44,34 @@ abstract class BaseActivity : AppCompatActivity(), IViewLoading {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
-        initView()
-        initData()
+        val decorView = window.decorView
+        initView(decorView, savedInstanceState)
+        initData(decorView, savedInstanceState)
     }
 
-    protected abstract fun getLayoutId(): Int
+    /**
+     * 获取Bundle
+     *
+     * @return 返回Intent中的Bundle
+     */
+    override fun getBundle(): Bundle? {
+        val intent = intent ?: return null
+        return intent.getBundleExtra("bundle")
+    }
 
-    protected abstract fun initView()
+    override fun getBaseActivity(): Activity? {
+        return this
+    }
 
-    protected abstract fun initData()
-
-    override fun showLoading(title: String) {
-        mProgressDialog.setTitle(title)?.show()
+    override fun showLoading(title: String, isDismissOnBackPressed: Boolean, isDismissOnTouchOutside: Boolean) {
+        mProgressDialog = mXPopupBuilder.dismissOnBackPressed(isDismissOnBackPressed)
+                .dismissOnTouchOutside(isDismissOnTouchOutside).asLoading()
+        mProgressDialog?.setTitle(title)?.show()
     }
 
     override fun hideLoading() {
         postOnMain {
-            mProgressDialog.dismiss()
+            mProgressDialog?.dismiss()
         }
     }
 

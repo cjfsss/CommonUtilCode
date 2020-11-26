@@ -118,15 +118,14 @@ public class CenterListMultiplePopupView extends CenterPopupView implements View
                     } else {
                         holder.getView(R.id.iv_image).setVisibility(GONE);
                     }
-
                     // 对勾View
                     CheckView checkView = holder.getView(R.id.check_view);
                     TextView textView = holder.<TextView>getView(R.id.tv_text);
+                    textView.setTextColor(checkedPositionList.contains(position) ?
+                            XPopup.getPrimaryColor() : getResources().getColor(R.color._xpopup_title_color));
                     if (!checkedPositionList.isEmpty()) {
                         checkView.setVisibility(checkedPositionList.contains(position) ? VISIBLE : GONE);
                         checkView.setColor(XPopup.getPrimaryColor());
-                        textView.setTextColor(checkedPositionList.contains(position) ?
-                                XPopup.getPrimaryColor() : getResources().getColor(R.color._xpopup_title_color));
                     } else {
                         checkView.setVisibility(GONE);
                         //如果没有选择，则文字居中
@@ -230,7 +229,7 @@ public class CenterListMultiplePopupView extends CenterPopupView implements View
             dismiss();
         } else {
             if (confirmListener != null) {
-                confirmListener.onSelect(checkedStringList, checkedPositionList, 0);
+                confirmListener.onSelect(this, checkedStringList, checkedPositionList, 0);
             }
         }
     }

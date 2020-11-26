@@ -43,6 +43,10 @@ public class LatLngSource implements Parcelable {
         this.longitude = longitude;
     }
 
+    public LatLngSource clone() {
+        return new LatLngSource(this.latitude, this.longitude);
+    }
+
     @Override
     @NonNull
     public String toString() {
