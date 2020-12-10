@@ -15,7 +15,6 @@ import com.cjf.util.listener.OnSelectStringListener
 import com.cjf.util.utils.ResUtils
 import com.cjf.util.utils.ViewUtils
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.lxj.xpopup.impl.PartShadowPopupView
 import com.lxj.xpopup.interfaces.OnCancelListener
 
@@ -29,7 +28,7 @@ import com.lxj.xpopup.interfaces.OnCancelListener
  * @version : 1.0
  */
 open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(context),
-    View.OnClickListener {
+        View.OnClickListener {
 
     private var cancelListener: OnCancelListener? = null
     private var confirmListener: OnSelectStringListener? = null
@@ -46,19 +45,16 @@ open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(cont
 
     private val dataSourceList by lazy { ArrayList<String>() }
     private val dataList by lazy { HashMap<Int, List<Any>>() }
+
     // 屏幕的高度
     private val screenHeight by lazy { ScreenUtils.getScreenHeight() }
-
-    init {
-        addInnerContent()
-    }
 
     override fun getImplLayoutId(): Int {
         return R.layout._xpopup_chip_group_down
     }
 
-    override fun initPopupContent() {
-        super.initPopupContent()
+    override fun onCreate() {
+        super.onCreate()
         nestedScrollView = findViewById(R.id.nestedScrollView)
         rootView = findViewById(R.id.rootView)
         tv_cancel = findViewById(R.id.tv_cancel)
@@ -99,7 +95,7 @@ open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(cont
                         tag = it[1] as String
                     }
                 }
-                confirmListener?.onSelect(tag, position)
+                confirmListener?.onSelect(this, tag, position)
                 if (popupInfo.autoDismiss) dismiss()
             }
         }
@@ -115,7 +111,7 @@ open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(cont
     }
 
     fun setListener(
-        confirmListener: OnSelectStringListener? = null, cancelListener: OnCancelListener? = null
+            confirmListener: OnSelectStringListener? = null, cancelListener: OnCancelListener? = null
     ): ChipGroupSingleDownPopup {
         this.cancelListener = cancelListener
         this.confirmListener = confirmListener
@@ -147,7 +143,7 @@ open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(cont
                     tag = it[1] as String
                 }
             }
-            confirmListener?.onSelect(tag, position)
+            confirmListener?.onSelect(this, tag, position)
             if (popupInfo.autoDismiss) dismiss()
         }
     }
@@ -174,7 +170,7 @@ open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(cont
     /**
      * 加载数据
      */
-    private fun loadData(dataSourceList: ArrayList<String>) {
+    private fun loadData(dataSourceList: List<String>) {
         chipGroup?.let { group ->
             group.removeAllViews()
             this.dataList.clear()

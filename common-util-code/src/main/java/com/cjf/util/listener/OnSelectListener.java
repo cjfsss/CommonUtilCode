@@ -1,6 +1,9 @@
 package com.cjf.util.listener;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.lxj.xpopup.core.BasePopupView;
 
 /**
  * <p>Title: OnSelectListener </p>
@@ -13,5 +16,5 @@ import androidx.annotation.Nullable;
  */
 public interface OnSelectListener<T> {
 
-    void onSelect(@Nullable T data, int position);
+    void onSelect(@NonNull BasePopupView popupView, @Nullable T data, int position);
 }
