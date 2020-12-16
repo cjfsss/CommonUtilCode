@@ -111,6 +111,17 @@ fun String?.empty(): String {
     return this.toString()
 }
 
+fun String?.deleteEndZero(): String {
+    var str = empty()
+    if (str.indexOf(".") > 0) {
+        // 去掉多余的0
+        str = str.replace(Regex("0+?\$"), "")
+        // 如最后一位是.则去掉
+        str = str.replace(Regex("[.]\$"), "")
+    }
+    return str
+}
+
 fun File.md5() = EncryptUtils.encryptMD5File2String(this)
 
 fun String.md5File() = EncryptUtils.encryptMD5File2String(this)
