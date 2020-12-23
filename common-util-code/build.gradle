@@ -64,6 +64,6 @@ uploadArchives{
         repository(url:"file:///C:/Users/Administrator/.m2/repository")
         pom.groupId = "com.cjf"
         pom.artifactId = "CommonUtilCode"
-        pom.version = "1.1.4"
+        pom.version = "1.1.5"
     }
 }
