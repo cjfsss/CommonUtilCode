@@ -5,6 +5,8 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
+import com.blankj.utilcode.util.TimeUtils;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,7 +24,7 @@ import java.util.Locale;
  * @version : 1.0
  * @date : 2020/3/26 17:29
  */
-public class  DateUtils {
+public class DateUtils {
 
     /**
      * 时间日期格式化到年月日时分秒.
@@ -125,6 +127,7 @@ public class  DateUtils {
     public static SimpleDateFormat getMMDDHHMM() {
         return new SimpleDateFormat("MM-dd hh:mm");
     }
+
     /***
      * 得到MM-dd hh:mm时间格式
      * @return
@@ -280,6 +283,7 @@ public class  DateUtils {
         }
         return mDateTime;
     }
+
     /**
      * 描述：Date类型转化为String类型.
      *
@@ -670,6 +674,7 @@ public class  DateUtils {
 
     /**
      * 根据当前日期获得上周的日期区间（本周周一和周日日期
+     *
      * @param format
      * @return
      */
@@ -692,6 +697,7 @@ public class  DateUtils {
 
     /**
      * 根据当前日期获得上周的日期区间（上周周一和周日日期
+     *
      * @param format
      * @return
      */
@@ -718,4 +724,24 @@ public class  DateUtils {
         return simpleDateFormat.format(calendarBegin.getTime()) + "," + simpleDateFormat.format(calendarEnd.getTime());
     }
 
+    public static String toDayHour(String time) {
+        String day = "";
+        String hour = "";
+        if (time.contains(" ")) {
+            String[] times = time.split(" ");
+            if (times[0].contains("-")) {
+                day = times[0].split("-")[2];
+            } else if (times[0].contains("/")) {
+                day = times[0].split("/")[2];
+            }
+            hour = times[1].split(":")[0];
+            return day + "日" + hour + "时";
+        }
+        if (time.contains("-")) {
+            day = time.split("-")[2];
+        } else if (time.contains("/")) {
+            day = time.split("/")[2];
+        }
+        return day + "日";
+    }
 }

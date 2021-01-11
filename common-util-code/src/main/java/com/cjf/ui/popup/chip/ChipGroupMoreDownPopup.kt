@@ -11,7 +11,6 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.cjf.ui.chip.ChipGroupDynamic
 import com.cjf.util.R
 import com.cjf.util.extension.height
-import com.cjf.util.listener.OnSelectStringListener
 import com.cjf.util.utils.ResUtils
 import com.cjf.util.utils.ViewUtils
 import com.google.android.material.chip.Chip
@@ -27,11 +26,11 @@ import com.lxj.xpopup.interfaces.OnCancelListener
  * @date : 2020/9/28 10:01
  * @version : 1.0
  */
-open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(context),
+open class ChipGroupMoreDownPopup(context: Context) : PartShadowPopupView(context),
         View.OnClickListener {
 
     private var cancelListener: OnCancelListener? = null
-    private var confirmListener: OnSelectStringListener? = null
+    private var confirmListener: OnSelectMultiLevelListener? = null
     private var rootView: LinearLayoutCompat? = null
     private var tv_cancel: TextView? = null
     private var tv_confirm: TextView? = null
@@ -40,8 +39,7 @@ open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(cont
     private var cancelText: CharSequence? = null
     private var confirmText: CharSequence? = null
     private var isHideCancel = false
-    private var hasButtonLayout = false
-    private var selectPosition: Int = -1
+    private var selectPositionList = arrayListOf<Int>()
 
     private val dataSourceList by lazy { ArrayList<String>() }
     private val dataList by lazy { HashMap<Int, List<Any>>() }
@@ -60,7 +58,6 @@ open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(cont
         tv_cancel = findViewById(R.id.tv_cancel)
         tv_confirm = findViewById(R.id.tv_confirm)
         chipGroup = findViewById(R.id.chipGroup)
-        chipGroup?.isSingleSelection = true
         tv_cancel?.setOnClickListener(this)
         tv_confirm?.setOnClickListener(this)
         if (!TextUtils.isEmpty(cancelText)) {
@@ -74,32 +71,10 @@ open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(cont
             val divider = findViewById<View>(R.id.xpopup_divider_h)
             if (divider != null) divider.visibility = GONE
         }
-        if (hasButtonLayout) {
-            findViewById<View>(R.id.xpopup_divider)?.visibility = VISIBLE
-            findViewById<View>(R.id.buttonLayout)?.visibility = VISIBLE
-        } else {
-            findViewById<View>(R.id.xpopup_divider)?.visibility = GONE
-            findViewById<View>(R.id.buttonLayout)?.visibility = GONE
-        }
         if (popupInfo.isDarkTheme) {
             applyDarkTheme()
         }
         loadData(dataSourceList)
-        if (!hasButtonLayout) {
-            chipGroup?.setOnCheckedChangeListener { _, checkedId ->
-                var position = 0
-                var tag: String? = null
-                if (!dataList.isNullOrEmpty()) {
-                    val list = dataList[checkedId]
-                    list?.let {
-                        position = it[0] as Int
-                        tag = it[1] as String
-                    }
-                }
-                confirmListener?.onSelect(this, tag, position)
-                if (popupInfo.autoDismiss) dismiss()
-            }
-        }
     }
 
     override fun applyDarkTheme() {
@@ -112,19 +87,19 @@ open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(cont
     }
 
     fun setListener(
-            confirmListener: OnSelectStringListener? = null, cancelListener: OnCancelListener? = null
-    ): ChipGroupSingleDownPopup {
+            confirmListener: OnSelectMultiLevelListener? = null, cancelListener: OnCancelListener? = null
+    ): ChipGroupMoreDownPopup {
         this.cancelListener = cancelListener
         this.confirmListener = confirmListener
         return this
     }
 
-    fun setCancelText(cancelText: CharSequence?): ChipGroupSingleDownPopup {
+    fun setCancelText(cancelText: CharSequence?): ChipGroupMoreDownPopup {
         this.cancelText = cancelText
         return this
     }
 
-    fun setConfirmText(confirmText: CharSequence?): ChipGroupSingleDownPopup {
+    fun setConfirmText(confirmText: CharSequence?): ChipGroupMoreDownPopup {
         this.confirmText = confirmText
         return this
     }
@@ -134,35 +109,37 @@ open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(cont
             if (cancelListener != null) cancelListener!!.onCancel()
             dismiss()
         } else if (v === tv_confirm) {
-            val checkedChipId = chipGroup?.checkedChipId
+            val nameList = arrayListOf<String>()
+            val positionList = arrayListOf<Int>()
+            val checkedChipIds = chipGroup?.checkedChipIds
             var position = 0
-            var tag: String? = null
-            if (checkedChipId != null && !dataList.isNullOrEmpty()) {
-                val list = dataList[checkedChipId]
-                list?.let {
-                    position = it[0] as Int
-                    tag = it[1] as String
+            var tag = ""
+            if (checkedChipIds != null && !dataList.isNullOrEmpty()) {
+                for (id in checkedChipIds) {
+                    val list = dataList[id]
+                    list?.let {
+                        position = it[0] as Int
+                        tag = it[1] as String
+                        positionList.add(position)
+                        nameList.add(tag)
+                    }
                 }
             }
-            confirmListener?.onSelect(this, tag, position)
+            confirmListener?.onSelect(this, nameList, positionList, 0)
             if (popupInfo.autoDismiss) dismiss()
         }
     }
 
-    fun hasButtonLayout(hasButtonLayout: Boolean): ChipGroupSingleDownPopup {
-        this.hasButtonLayout = hasButtonLayout
-        return this
-    }
-
-    fun checkPosition(position: Int): ChipGroupSingleDownPopup {
-        this.selectPosition = position
+    fun checkPosition(positionList: List<Int>): ChipGroupMoreDownPopup {
+        selectPositionList.clear()
+        this.selectPositionList.addAll(positionList)
         return this
     }
 
     /**
      * 设置数据
      */
-    fun setData(dataList: ArrayList<String>): ChipGroupSingleDownPopup {
+    fun setData(dataList: ArrayList<String>): ChipGroupMoreDownPopup {
         dataSourceList.clear()
         dataSourceList.addAll(dataList)
         return this
@@ -176,12 +153,14 @@ open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(cont
             group.removeAllViews()
             this.dataList.clear()
             val size = dataSourceList.size
-            var checkId = -1;
+            val checkId = arrayListOf<Int>()
             for (i in 0 until size) {
                 val chip = createTagTextView(dataSourceList[i], i)
                 group.addViewInLayout(chip)
-                if (selectPosition == i) {
-                    checkId = chip.id
+                for (position in selectPositionList){
+                    if (position == i) {
+                        checkId.add(chip.id)
+                    }
                 }
             }
             group.requestLayout()
@@ -193,9 +172,8 @@ open class ChipGroupSingleDownPopup(context: Context) : PartShadowPopupView(cont
                     nestedScrollView?.height(ViewGroup.LayoutParams.WRAP_CONTENT)
                 }
             }
-            group.isSingleSelection = true
-            if (checkId != -1) {
-                group.check(checkId)
+            for (id in checkId) {
+                group.check(id)
             }
         }
     }

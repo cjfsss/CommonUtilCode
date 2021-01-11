@@ -5,6 +5,7 @@ package com.cjf.base.delegate.fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.cjf.base.delegate.Delegate
+import com.cjf.base.view.IViewLoading
 
 /**
  * <p>Title: BaseDelegate </p>
@@ -28,5 +29,17 @@ abstract class FragmentDelegate(private val fragment: Fragment) : Delegate(fragm
 
     open fun getFragment(): Fragment {
         return fragment
+    }
+
+    override fun getViewLoading(): IViewLoading? {
+        val fragment = getFragment()
+        if (fragment is IViewLoading) {
+            return fragment
+        }
+        val activity = getActivity()
+        if (activity is IViewLoading) {
+            return activity
+        }
+        return null
     }
 }

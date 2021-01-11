@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
+import com.cjf.base.view.IViewLoading
 
 /**
  * <p>Title: BaseDelegate </p>
@@ -34,5 +35,13 @@ abstract class Delegate(private val activity: AppCompatActivity) : LifecycleObse
 
     fun getActivity(): AppCompatActivity {
         return activity
+    }
+
+    open fun getViewLoading(): IViewLoading? {
+        val activity = getActivity()
+        if (activity is IViewLoading) {
+            return activity
+        }
+        return null
     }
 }

@@ -14,13 +14,17 @@ import com.cjf.base.view.IFragmentActivity
  * @date : 2020/12/15 15:51
  * @version : 1.0
  */
-abstract class ViewDelegate(private val rootView: View, activity: AppCompatActivity) : LayoutDelegate(activity), IFragmentActivity {
+abstract class ViewDelegate(rootView: View, activity: AppCompatActivity) : LayoutDelegate(activity), IFragmentActivity {
+
+    init {
+        mRootView = rootView
+    }
 
     @SuppressLint("RestrictedApi")
     override fun applyLayout(): View {
-        initView(rootView, null)
-        initData(rootView, null)
-        return rootView
+        initView(mRootView!!, null)
+        initData(mRootView!!, null)
+        return mRootView!!
     }
 
     override fun getLayoutId(): Int {

@@ -19,7 +19,8 @@ abstract class StubFragmentDelegate(fragment: Fragment, private val stubCompat: 
     @SuppressLint("RestrictedApi")
     override fun applyLayout(): View {
         stubCompat.setOnInflateListener(this)
-        return stubCompat.inflate()
+        mRootView = stubCompat.inflate()
+        return mRootView!!
     }
 
 

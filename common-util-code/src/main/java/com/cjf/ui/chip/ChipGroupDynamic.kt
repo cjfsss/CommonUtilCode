@@ -30,16 +30,18 @@ class ChipGroupDynamic @JvmOverloads constructor(
         if (params == null) {
             params = generateDefaultLayoutParams()
         }
-        addViewInLayout(child, index, params)
+        addView(child, index, params)
+//        addViewInLayout(child, index, params)
     }
 
 
-    open override fun addViewInLayout(child: View?, index: Int, params: ViewGroup.LayoutParams?, preventRequestLayout: Boolean): Boolean {
-        if (child is Chip) {
-            if (child.isChecked) {
-                check(child.id)
-            }
-        }
-        return super.addViewInLayout(child, index, params, preventRequestLayout)
-    }
+//    open override fun addViewInLayout(child: View?, index: Int, params: ViewGroup.LayoutParams?, preventRequestLayout: Boolean): Boolean {
+//        if (child is Chip) {
+//            if (child.isChecked) {
+//                check(child.id)
+//            }
+//        }
+//        addView(child, index, params)
+//        return super.addViewInLayout(child, index, params, preventRequestLayout)
+//    }
 }

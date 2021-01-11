@@ -24,8 +24,7 @@ fun <T, VH : BaseViewHolder> BaseQuickAdapter<T, VH>.scrollTo(id: Int, x: Int, y
     for (i in 0 until itemCount) {
         val viewByPosition =
                 getViewByPosition(i, id)
-                        ?: return
-        if (viewByPosition is HVScrollView) {
+        if (viewByPosition != null && viewByPosition is HVScrollView) {
             viewByPosition.scrollTo(x, y)
         }
     }

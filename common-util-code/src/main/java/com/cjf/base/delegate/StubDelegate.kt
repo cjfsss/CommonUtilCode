@@ -19,7 +19,8 @@ abstract class StubDelegate(activity: AppCompatActivity, private val stubCompat:
     @SuppressLint("RestrictedApi")
     override fun applyLayout(): View {
         stubCompat.setOnInflateListener(this)
-        return stubCompat.inflate()
+        mRootView = stubCompat.inflate()
+        return mRootView!!
     }
 
     override fun getLayoutId(): Int {
