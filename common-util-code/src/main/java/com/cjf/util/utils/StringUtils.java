@@ -4,15 +4,21 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.ArrayMap;
+import android.util.Base64;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import kotlin.text.Charsets;
 
 /**
  * <p>Title: StringUtils </p>
@@ -25,13 +31,6 @@ import java.util.UUID;
  */
 public class StringUtils {
 
-    @NonNull
-    public static StringBuilder deleteEnd(@NonNull StringBuilder builder) {
-        if (builder.length() > 1) {
-            return builder.delete(builder.length() - 1, builder.length());
-        }
-        return builder;
-    }
 
     @SuppressLint({"HardwareIds", "MissingPermission"})
     @NonNull
@@ -94,6 +93,78 @@ public class StringUtils {
         return md5ToString(getUUID(), getyyyyMMddHHmmssSSSS());
     }
 
+    /**
+     * 对字符串进行编码
+     *
+     * @param target 目标
+     * @return
+     */
+    @NonNull
+    public static String toBase64Encoder(@Nullable String target) {
+        target = toEmpty(target);
+        if (TextUtils.isEmpty(target)) {
+            return target;
+        }
+        return Base64.encodeToString(target.getBytes(Charsets.UTF_8), Base64.NO_WRAP);
+    }
+
+    /**
+     * 对字符串进行解密
+     *
+     * @param target 目标值
+     * @return
+     */
+    @NonNull
+    public static String toBase64Decoder(@Nullable String target) {
+        target = toEmpty(target);
+        if (TextUtils.isEmpty(target)) {
+            return target;
+        }
+        return new String(Base64.decode(target.getBytes(Charsets.UTF_8), Base64.NO_WRAP), Charsets.UTF_8);
+    }
+
+    /**
+     * 对字符串进行编码
+     *
+     * @param target 目标
+     * @return
+     */
+    @NonNull
+    public static String toBase64UrlEncoder(@Nullable String target) {
+        target = toEmpty(target);
+        if (TextUtils.isEmpty(target)) {
+            return target;
+        }
+        final String base64 = Base64.encodeToString(target.getBytes(Charsets.UTF_8), Base64.NO_WRAP);
+        try {
+            return URLEncoder.encode(base64, Charsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return target;
+    }
+
+    /**
+     * 对字符串进行解密
+     *
+     * @param target 目标值
+     * @return
+     */
+    @NonNull
+    public static String toUrlBase64Decoder(@Nullable String target) {
+        target = toEmpty(target);
+        if (TextUtils.isEmpty(target)) {
+            return target;
+        }
+        try {
+            final String base64 = URLDecoder.decode(target, Charsets.UTF_8.name());
+            return new String(Base64.decode(base64.getBytes(Charsets.UTF_8), Base64.NO_WRAP), Charsets.UTF_8);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return target;
+    }
+
     @NonNull
     public static String md5ToString(@NonNull String... targets) {
         StringBuilder targetBuilder = new StringBuilder();
@@ -111,15 +182,20 @@ public class StringUtils {
      */
     @NonNull
     public static String toTime(@Nullable String time) {
-        if (!TextUtils.isEmpty(time)) {
-            if (!time.contains("T")) {
-                return time;
+        if (time == null || TextUtils.isEmpty(time)) {
+            return "";
+        }
+        if (time.contains("T") || time.contains("+") || time.contains(".")) {
+            if (time.contains("T")) {
+                time = time.replace("T", " ");
             }
-            time = time.replace("T", " ");
-            if (!time.contains(".")) {
-                return time;
+            if (time.contains(".")) {
+                time = time.substring(0, time.lastIndexOf("."));
             }
-            time = time.substring(0, time.lastIndexOf("."));
+            if (time.contains("+")) {
+                time = time.substring(0, time.lastIndexOf("+"));
+            }
+            return time;
         }
         return time;
     }
@@ -132,21 +208,21 @@ public class StringUtils {
     @NonNull
     public static String toTimeN(@Nullable String time) {
         String toTime = toTime(time);
-        if (!TextUtils.isEmpty(toTime)) {
-            if (!toTime.contains("/")) {
-                return toTime;
-            }
-            toTime = toTime.replace("/", "-");
-            if (!toTime.contains(".")) {
-                return toTime;
-            }
-            return toTime.substring(0, toTime.lastIndexOf("."));
+        if (TextUtils.isEmpty(toTime)) {
+            return toTime;
         }
-        return toTime;
+        if (toTime.contains("/")) {
+            toTime = toTime.replace("/", "-");
+        }
+        if (!toTime.contains(".")) {
+            return toTime;
+        }
+        return toTime.substring(0, toTime.lastIndexOf("."));
     }
 
-    public static String toStringZero(String value) {
-        if (TextUtils.isEmpty(value)) {
+    @NonNull
+    public static String toStringZero(@Nullable String value) {
+        if (value == null || TextUtils.isEmpty(toNULL(value))) {
             return "0";
         }
         if (value.indexOf(".") > 0) {
@@ -157,11 +233,60 @@ public class StringUtils {
     }
 
     /**
+     * 将String转换为Long类型
+     *
+     * @param value 目标值
+     */
+    public static long toLongZero(@Nullable final String value) {
+        if (value == null || TextUtils.isEmpty(toNULL(value))) {
+            return 0L;
+        }
+        return Long.parseLong(value);
+    }
+
+    /**
+     * 将String转换为Int类型
+     *
+     * @param value 目标值
+     */
+    public static int toIntZero(@Nullable final String value) {
+        if (value == null || TextUtils.isEmpty(toNULL(value))) {
+            return 0;
+        }
+        return Integer.parseInt(value);
+    }
+
+    /**
+     * 将String转换为float类型
+     *
+     * @param value 目标值
+     */
+    public static float toFloatZero(@Nullable final String value) {
+        if (value == null || TextUtils.isEmpty(toNULL(value))) {
+            return 0f;
+        }
+        return Float.parseFloat(value);
+    }
+
+    /**
+     * 将String转换为double类型
+     *
+     * @param value 目标值
+     */
+    public static double toDoubleZero(@Nullable final String value) {
+        if (value == null || TextUtils.isEmpty(toNULL(value))) {
+            return 0.0D;
+        }
+        return Double.parseDouble(value);
+    }
+
+
+    /**
      * 获取已,隔开的第一个
      */
     @NonNull
     public static String getFirstSplit(@NonNull String target) {
-        if (TextUtils.isEmpty(target)) {
+        if (TextUtils.isEmpty(toNULL(target))) {
             return target;
         }
         if (target.contains(",")) {
@@ -176,7 +301,7 @@ public class StringUtils {
      * @param target 目标字符串
      */
     public static String getExcludeFirstSplit(@NonNull String target) {
-        if (TextUtils.isEmpty(target)) {
+        if (TextUtils.isEmpty(toNULL(target))) {
             return target;
         }
         if (target.contains(",")) {
@@ -185,7 +310,7 @@ public class StringUtils {
             for (int i = 1; i < split.length; i++) {
                 builder.append(split[i]).append(",");
             }
-            return deleteEnd(builder).toString();
+            return StringBuilderUtils.deleteEnd(builder).toString();
         }
         return "";
     }
@@ -286,4 +411,72 @@ public class StringUtils {
         }
         return map;
     }
+
+    @Nullable
+    public static String toNULL(@Nullable String target) {
+        if (TextUtils.isEmpty(target) || TextUtils.equals(target, "null")
+                || TextUtils.equals(target, "NULL")) {
+            return null;
+        }
+        return target;
+    }
+
+    @NonNull
+    public static String toEmpty(@Nullable String target) {
+        if (TextUtils.isEmpty(target) || TextUtils.equals(target, "null")
+                || TextUtils.equals(target, "NULL")) {
+            return "";
+        }
+        return target == null ? "" : target;
+    }
+
+    @NonNull
+    public static String trimNR(@Nullable String target) {
+        if (target == null || TextUtils.isEmpty(toNULL(target))) {
+            return "";
+        }
+        return target.replace("\n", "")
+                .replace("\r", "").trim();
+    }
+
+    @NonNull
+    public static String noData(@Nullable String target) {
+        String toNULL = toNULL(target);
+        if (toNULL == null) {
+            return "暂无";
+        }
+        return toNULL;
+    }
+
+    @NonNull
+    public static String noDataTime(@Nullable String target) {
+        String toNULL = toNULL(target);
+        if (toNULL == null) {
+            return "暂无";
+        }
+        return toTime(target);
+    }
+
+    @NonNull
+    public static String noDataTimeN(@Nullable String target) {
+        String toNULL = toNULL(target);
+        if (toNULL == null) {
+            return "暂无";
+        }
+        return toTimeN(target);
+    }
+
+    @NonNull
+    public static String deleteEndZero(@Nullable String target) {
+        String str = toEmpty(target);
+        if (str.indexOf(".") > 0) {
+            // 去掉多余的0
+            str = str.replaceAll("0+?\\$", "");
+            // 如最后一位是.则去掉
+            str = str.replaceAll("[.]\\$", "");
+        }
+        return str;
+    }
+
+
 }

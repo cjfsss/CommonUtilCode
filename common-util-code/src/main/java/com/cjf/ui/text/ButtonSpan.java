@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
  * @version : 1.0
  * @date : 2020/9/10 12:03
  */
-class ButtonSpan extends ClickableSpan {
+public class ButtonSpan extends ClickableSpan {
 
     View.OnClickListener onClickListener;
     private Context context;

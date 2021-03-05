@@ -1,8 +1,9 @@
 package com.cjf.util.extension
 
-import android.text.TextUtils
 import android.util.Base64
 import com.blankj.utilcode.util.EncryptUtils
+import com.cjf.util.utils.IntegerUtils
+import com.cjf.util.utils.LongUtils
 import com.cjf.util.utils.StringUtils
 import java.io.File
 
@@ -17,98 +18,67 @@ import java.io.File
  */
 
 fun String?.toStringZero(): String {
-    if (TextUtils.isEmpty(toNULL())) {
-        return "0"
-    }
     return StringUtils.toStringZero(this)
 }
 
 fun String?.toLongZero(): Long {
-    if (TextUtils.isEmpty(toNULL())) {
-        return 0L
-    }
-    return this!!.toLong()
+    return StringUtils.toLongZero(this)
 }
 
 fun String?.toIntZero(): Int {
-    if (TextUtils.isEmpty(toNULL())) {
-        return 0
-    }
-    return this!!.toInt()
+    return StringUtils.toIntZero(this)
 }
 
 fun String?.toFloatZero(): Float {
-    if (TextUtils.isEmpty(toNULL())) {
-        return 0f
-    }
-    return this!!.toFloat()
+    return StringUtils.toFloatZero(this)
 }
 
 fun String?.toDoubleZero(): Double {
-    if (TextUtils.isEmpty(toNULL())) {
-        return 0.0
-    }
-    return this!!.toDouble()
+    return StringUtils.toDoubleZero(this)
 }
 
 fun Int?.toIntZero(): Int {
-    if (this == null) {
-        return 0
-    }
-    return this
+    return IntegerUtils.toIntZero(this)
 }
 
 fun Long?.toLongZero(): Long {
-    if (this == null) {
-        return 0L
-    }
-    return this
+    return LongUtils.toLongZero(this)
 }
 
 fun String?.trimNR(): String {
-    if (TextUtils.isEmpty(toNULL())) {
-        return ""
-    }
-    return this?.replace("\n", "")?.replace("\r", "")?.trim().toString()
+//    if (TextUtils.isEmpty(toNULL())) {
+//        return ""
+//    }
+//    return this?.replace("\n", "")?.replace("\r", "")?.trim().toString()
+    return StringUtils.trimNR(this)
 }
 
 fun String?.noData(): String {
-    if (TextUtils.isEmpty(toNULL())) {
-        return "暂无"
-    }
-    return this.toString()
+    return StringUtils.noData(this)
+}
+
+fun String?.noDataTime(): String {
+    return StringUtils.noDataTime(this)
+}
+
+fun String?.noDataTimeN(): String {
+    return StringUtils.noDataTimeN(this)
 }
 
 fun String?.toTime(): String {
-    if (TextUtils.isEmpty(toNULL())) {
-        return "暂无"
-    }
     return StringUtils.toTime(this)
 }
 
 fun String?.toTimeN(): String {
-    if (TextUtils.isEmpty(toNULL())) {
-        return "暂无"
-    }
     return StringUtils.toTimeN(this)
 }
 
 fun String?.toNULL(): String? {
-    if (TextUtils.isEmpty(this) || TextUtils.equals(this, "null")
-            || TextUtils.equals(this, "NULL")
-    ) {
-        return null
-    }
-    return this.toString()
+    return StringUtils.toNULL(this)
 }
 
 fun String?.empty(): String {
-    if (TextUtils.isEmpty(this) || TextUtils.equals(this, "null")
-            || TextUtils.equals(this, "NULL")
-    ) {
-        return ""
-    }
-    return this.toString()
+    return StringUtils.toEmpty(this)
 }
 
 fun String?.deleteEndZero(): String {
@@ -120,6 +90,46 @@ fun String?.deleteEndZero(): String {
         str = str.replace(Regex("[.]\$"), "")
     }
     return str
+}
+
+/**
+ * 对字符串进行编码
+ *
+ * @param target 目标
+ * @return
+ */
+fun String?.toBase64Encoder(): String {
+    return StringUtils.toBase64Encoder(this)
+}
+
+/**
+ * 对字符串进行解密
+ *
+ * @param target 目标值
+ * @return
+ */
+fun String?.toBase64Decoder(): String {
+    return StringUtils.toBase64Decoder(this)
+}
+
+/**
+ * 对字符串进行编码
+ *
+ * @param target 目标
+ * @return
+ */
+fun String?.toBase64UrlEncoder(): String {
+    return StringUtils.toBase64UrlEncoder(this)
+}
+
+/**
+ * 对字符串进行解密
+ *
+ * @param target 目标值
+ * @return
+ */
+fun String?.toUrlBase64Decoder(): String {
+    return StringUtils.toUrlBase64Decoder(this)
 }
 
 fun File.md5() = EncryptUtils.encryptMD5File2String(this)

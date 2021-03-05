@@ -9,6 +9,8 @@ import android.util.TypedValue;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.cjf.util.R;
+
 /**
  * <p>Title: ResAttributeUtils </p>
  * <p>Description:  </p>
@@ -45,6 +47,10 @@ public class ResAttributeUtils {
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    public int getColorPrimary(@NonNull Context context) {
+        return getAttribute(context, R.attr.colorPrimary).data;
     }
 
     /**

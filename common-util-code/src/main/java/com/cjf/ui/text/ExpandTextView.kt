@@ -121,8 +121,7 @@ class ExpandTextView : AppCompatTextView {
         } else {
             StaticLayout(
                     mTextAll, paint, measuredWidth - paddingLeft - paddingRight,
-                    Layout.Alignment.ALIGN_CENTER, 1f, 0f,
-                    true
+                    Layout.Alignment.ALIGN_CENTER, 1f, 0f, true
             )
         }
 

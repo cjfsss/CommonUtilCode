@@ -63,7 +63,8 @@ abstract class BaseActivity : AppCompatActivity(), IFragmentActivity, IViewLoadi
         return this
     }
 
-    override fun showLoading(title: String, isDismissOnBackPressed: Boolean, isDismissOnTouchOutside: Boolean) {
+    override fun showLoading(title: String, isDismissOnBackPressed: Boolean,
+                             isDismissOnTouchOutside: Boolean) {
         mProgressDialog = mXPopupBuilder.dismissOnBackPressed(isDismissOnBackPressed)
                 .dismissOnTouchOutside(isDismissOnTouchOutside).asLoading()
         mProgressDialog?.setTitle(title)?.show()

@@ -26,7 +26,7 @@ fun Fragment.positionArg(position: Int, vararg params: Pair<String, Any?>): Frag
 
 // 配置Fragment的下标
 fun Fragment.position(position: Int, bundle: Array<out Pair<String, Any?>>? = null): Fragment {
-    val mutableList: MutableList<Pair<String, Any?>>? = arrayOf(Pair("position", position)).toMutableList()
+    val mutableList: MutableList<Pair<String, Any?>> = arrayOf(Pair("position", position)).toMutableList()
     if (bundle != null) {
         mutableList?.addAll(bundle.toMutableList())
     }

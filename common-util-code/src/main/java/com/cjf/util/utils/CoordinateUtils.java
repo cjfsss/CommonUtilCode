@@ -3,8 +3,6 @@ package com.cjf.util.utils;
 import android.text.TextUtils;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.Toolbar;
-
 import static java.lang.Math.PI;
 
 /**
