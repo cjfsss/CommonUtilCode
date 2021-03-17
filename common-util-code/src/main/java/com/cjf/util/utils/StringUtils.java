@@ -9,9 +9,13 @@ import android.util.Base64;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.ImageUtils;
+
 import java.io.UnsupportedEncodingException;
+import java.math.RoundingMode;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -477,6 +481,32 @@ public class StringUtils {
         }
         return str;
     }
+    /**
+     * 对入参保留最多两位小数(舍弃末尾的0)，如:
+     * 3.345->3.34
+     * 3.40->3.4
+     * 3.0->3
+     */
+    @NonNull
+    public static String toDecimalFormat(@Nullable final Object number) {
+        return toDecimalFormat("0.##", number);
+    }
 
+    /**
+     * 对入参保留最多几位小数(舍弃末尾的0)，如:
+     * 3.345->3.34
+     * 3.40->3.4
+     * 3.0->3
+     */
+    @NonNull
+    public static String toDecimalFormat(@NonNull final String pattern, @Nullable final Object number) {
+        if (number == null) {
+            return "0";
+        }
+        DecimalFormat format = new DecimalFormat(pattern);
+        //未保留小数的舍弃规则，RoundingMode.FLOOR表示直接舍弃。
+        format.setRoundingMode(RoundingMode.FLOOR);
+        return format.format(number);
+    }
 
 }

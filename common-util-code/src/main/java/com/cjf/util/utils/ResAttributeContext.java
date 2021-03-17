@@ -3,13 +3,13 @@ package com.cjf.util.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.cjf.util.R;
+
 
 /**
  * <p>Title: ResAttributeUtils </p>
@@ -20,7 +20,7 @@ import com.cjf.util.R;
  * @version : 1.0
  * @date : 2020/1/2 9:16
  */
-public class ResAttributeUtils {
+public class ResAttributeContext {
 
     /**
      * 获取主题中的属性
@@ -49,7 +49,7 @@ public class ResAttributeUtils {
         }
     }
 
-    public int getColorPrimary(@NonNull Context context) {
+    public static int getColorPrimary(@NonNull Context context) {
         return getAttribute(context, R.attr.colorPrimary).data;
     }
 
@@ -68,23 +68,6 @@ public class ResAttributeUtils {
         }
     }
 
-    /**
-     * 获取主题中的图标资源属性
-     *
-     * @param resId 资源ID
-     * @return
-     */
-    public static int getAttributeColor(@NonNull Context context, int resId) {
-        try {
-            return getColor(context, getAttributeRes(context, resId));
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
-    private static int getColor(@NonNull Context context, int id) {
-        return Build.VERSION.SDK_INT >= 23 ? context.getColor(id) : context.getResources().getColor(id);
-    }
 
     /**
      * 获取主题中的图标资源属性
