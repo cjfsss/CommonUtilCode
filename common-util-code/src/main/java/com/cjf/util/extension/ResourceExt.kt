@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.cjf.util.utils.ResContext
 import com.cjf.util.utils.ResUtils
 
 /**
@@ -14,22 +15,22 @@ import com.cjf.util.utils.ResUtils
  * Create by dance, at 2018/12/11
  */
 
-fun Context.color(id: Int) = ResUtils.getColor(this, id)
+fun Context.color(id: Int) = ResContext.getColor(this, id)
 
-fun Context.string(id: Int) = ResUtils.getString(this, id)
+fun Context.string(id: Int) = ResContext.getString(this, id)
 
-fun Context.stringArray(id: Int) = ResUtils.getStringArray(this, id)
+fun Context.stringArray(id: Int) = ResContext.getStringArray(this, id)
 
-fun Context.intArray(id: Int) = ResUtils.getIntArray(this, id)
+fun Context.intArray(id: Int) = ResContext.getIntArray(this, id)
 
-fun Context.textArray(id: Int) = ResUtils.getTextArray(this, id)
+fun Context.textArray(id: Int) = ResContext.getTextArray(this, id)
 
-fun Context.mipmapArray(id: Int) = ResUtils.getMipmapArray(this, id)
+fun Context.mipmapArray(id: Int) = ResContext.getMipmapArray(this, id)
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-fun Context.stateListAnimator(id: Int) = ResUtils.getStateListAnimator(this, id)
+fun Context.stateListAnimator(id: Int) = ResContext.getStateListAnimator(this, id)
 
-fun Context.drawable(id: Int) = ResUtils.getDrawable(this, id)
+fun Context.drawable(id: Int) = ResContext.getDrawable(this, id)
 
 fun Context.dimenPx(id: Int) = resources.getDimensionPixelSize(id)
 
