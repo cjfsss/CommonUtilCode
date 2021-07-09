@@ -3,6 +3,7 @@ package com.cjf.base.activity
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
+import com.cjf.base.permission.PermissionUtils
 import com.cjf.base.permission.RuntimeRationale
 import com.cjf.util.R
 import com.cjf.util.utils.ResUtils
@@ -30,21 +31,28 @@ abstract class AndPermissionActivity : BaseActivity() {
      */
     fun requestPermission(@PermissionDef permissions: Array<String>) {
         this.permissions = permissions
-        if (!AndPermission.hasPermissions(this, permissions)) {
-            AndPermission.with(this)
-                    .runtime()
-                    .permission(*permissions)
-                    .rationale(RuntimeRationale())
-                    .onGranted {
-                        onGrantedSuccess()
-                    }
-                    .onDenied {
-                        showSettingDialog(this@AndPermissionActivity, permissions.asList())
-                    }
-                    .start()
-        } else {
+        // 获取需要申请的权限
+        val needPermissionList: List<String> = PermissionUtils.getNeedPermissionList(this, permissions)
+        if (needPermissionList.isEmpty()) {
+            // 没有需要申请的权限，不需要再进行申请了
             onGrantedSuccess()
+            return
         }
+        if (AndPermission.hasPermissions(this, permissions)) {
+            onGrantedSuccess()
+            return
+        }
+        AndPermission.with(this)
+                .runtime()
+                .permission(permissions)
+                .rationale(RuntimeRationale())
+                .onGranted {
+                    onGrantedSuccess()
+                }
+                .onDenied {
+                    showSettingDialog(this@AndPermissionActivity, permissions.asList())
+                }
+                .start()
     }
 
     abstract fun onGrantedSuccess()
@@ -83,9 +91,7 @@ abstract class AndPermissionActivity : BaseActivity() {
     }
 
     override fun onActivityResult(
-            requestCode: Int,
-            resultCode: Int,
-            data: Intent?
+            requestCode: Int, resultCode: Int, data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
         onPermissionResult(requestCode)

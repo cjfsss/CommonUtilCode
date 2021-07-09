@@ -2,6 +2,7 @@ package com.cjf.base.activity
 
 import android.app.Activity
 import android.os.Bundle
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -19,7 +20,19 @@ import com.lxj.xpopup.impl.LoadingPopupView
  * Description:
  * Create by dance, at 2019/5/16
  */
-abstract class BaseActivity : AppCompatActivity(), IFragmentActivity, IViewLoading {
+abstract class BaseActivity : AppCompatActivity, IFragmentActivity, IViewLoading {
+
+    @LayoutRes
+    private var mContentLayoutId = 0
+
+    constructor() {
+        mContentLayoutId = getLayoutId()
+    }
+
+    constructor(contentLayoutId: Int) : this() {
+        mContentLayoutId = contentLayoutId
+    }
+
 
     private var mProgressDialog: LoadingPopupView? = null
 
@@ -36,6 +49,7 @@ abstract class BaseActivity : AppCompatActivity(), IFragmentActivity, IViewLoadi
         return adapter
     }
 
+
 //    protected fun <T, VH : BaseViewHolder, A : BaseQuickAdapter<T, VH>> bindAdapter(adapter: A): A {
 //        adapterList.add(adapter)
 //        return adapter
@@ -43,7 +57,11 @@ abstract class BaseActivity : AppCompatActivity(), IFragmentActivity, IViewLoadi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(getLayoutId())
+        if (mContentLayoutId != 0) {
+            setContentView(mContentLayoutId)
+        } else {
+            setContentView(getLayoutId())
+        }
         val decorView = window.decorView
         initView(decorView, savedInstanceState)
         initData(decorView, savedInstanceState)

@@ -168,7 +168,7 @@ public class CenterListMultiplePopupView extends CenterPopupView implements View
         tv_title.setTextColor(getResources().getColor(R.color._xpopup_white_color));
         tv_cancel.setTextColor(ResUtils.getColor(R.color._xpopup_white_color));
         tv_confirm.setTextColor(ResUtils.getColor(R.color._xpopup_white_color));
-        ((ViewGroup) tv_title.getParent()).setBackgroundResource(R.drawable._xpopup_round3_dark_bg);
+        ((ViewGroup) tv_title.getParent()).setBackgroundResource(R.drawable._xpopup_round3_bg);
         findViewById(R.id.xpopup_divider).setBackgroundColor(getResources().getColor(R.color._xpopup_list_dark_divider));
     }
 

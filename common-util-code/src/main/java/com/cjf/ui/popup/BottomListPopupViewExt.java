@@ -143,7 +143,7 @@ public class BottomListPopupViewExt  extends BottomPopupView {
     protected void applyDarkTheme() {
         super.applyDarkTheme();
         tv_title.setTextColor(getResources().getColor(R.color._xpopup_white_color));
-        ((ViewGroup)tv_title.getParent()).setBackgroundResource(R.drawable._xpopup_round3_top_dark_bg);
+        ((ViewGroup)tv_title.getParent()).setBackgroundResource(R.drawable._xpopup_round3_bg);
         findViewById(R.id.xpopup_divider).setBackgroundColor(
                 getResources().getColor(R.color._xpopup_list_dark_divider)
         );

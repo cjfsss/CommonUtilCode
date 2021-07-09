@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ActivityUtils
@@ -23,7 +24,18 @@ import com.lxj.xpopup.impl.LoadingPopupView
  * Description:
  * Create by dance, at 2019/5/16
  */
-abstract class BaseFragment : Fragment(), IFragmentActivity, IViewLoading {
+abstract class BaseFragment : Fragment, IFragmentActivity, IViewLoading {
+
+    @LayoutRes
+    private var mContentLayoutId = 0
+
+    constructor() {
+        mContentLayoutId = getLayoutId()
+    }
+
+    constructor(contentLayoutId: Int) : this() {
+        mContentLayoutId = contentLayoutId
+    }
 
     private var mProgressDialog: LoadingPopupView? = null
 
@@ -41,6 +53,9 @@ abstract class BaseFragment : Fragment(), IFragmentActivity, IViewLoading {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (mContentLayoutId != 0) {
+            return inflater.inflate(mContentLayoutId, container, false)
+        }
         return inflater.inflate(getLayoutId(), container, false)
     }
 
