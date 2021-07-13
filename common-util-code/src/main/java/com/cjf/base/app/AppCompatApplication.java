@@ -64,6 +64,10 @@ public class AppCompatApplication extends Application implements LifecycleOwner,
     @Nullable
     private MutableLiveData<Msg> msg = null;
 
+    public int getPageSize() {
+        return 30;
+    }
+
     @NonNull
     public MutableLiveData<Msg> getMsg() {
         if (msg != null) {

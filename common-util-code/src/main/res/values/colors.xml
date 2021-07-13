@@ -30,6 +30,7 @@
     <color name="divider">@color/colorLine</color>
 
     <color name="design_white">#FFFFFF</color>
+    <color name="design_white_pressed">#f5f5f5</color>
     <color name="design_white_holo">#c7c7c7</color>
     <color name="design_white_enabled">#a1a1a1</color>
     <color name="design_txt">#444444</color>
