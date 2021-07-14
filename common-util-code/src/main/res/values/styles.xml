@@ -96,7 +96,7 @@
         <item name="picture.folder_checked_dot">@drawable/picture_orange_oval</item>
     </style>
 
-    <style name="itemBackgroundStyle" >
+    <style name="BaseItemBackgroundStyle">
         <item name="android:layout_marginLeft">@dimen/dp_10</item>
         <item name="android:layout_marginRight">@dimen/dp_10</item>
         <item name="android:layout_marginTop">@dimen/dp_8</item>
@@ -107,19 +107,59 @@
         <item name="android:paddingTop">@dimen/dp_8</item>
         <item name="android:paddingBottom">@dimen/dp_8</item>
     </style>
-    <style name="itemBackgroundTopStyle" parent="itemBackgroundStyle" >
+
+    <style name="BaseItemBackgroundStyle16" parent="itemBackgroundStyle">
+        <item name="android:layout_marginLeft">@dimen/dp_16</item>
+        <item name="android:layout_marginRight">@dimen/dp_16</item>
+        <item name="android:layout_marginTop">@dimen/dp_10</item>
+        <item name="android:layout_marginBottom">@dimen/dp_6</item>
+        <item name="android:paddingLeft">@dimen/dp_12</item>
+        <item name="android:paddingRight">@dimen/dp_12</item>
+        <item name="android:paddingTop">@dimen/dp_12</item>
+        <item name="android:paddingBottom">@dimen/dp_12</item>
+    </style>
+
+    <style name="itemBackgroundStyle" parent="BaseItemBackgroundStyle" />
+
+    <style name="itemBackgroundTopStyle" parent="itemBackgroundStyle">
         <item name="android:background">@drawable/bg_white_radius_top</item>
     </style>
-    <style name="itemBackgroundBottomStyle" parent="itemBackgroundStyle" >
+
+    <style name="itemBackgroundBottomStyle" parent="itemBackgroundStyle">
         <item name="android:background">@drawable/bg_white_radius_bottom</item>
     </style>
-    <style name="itemBackgroundPressedStyle" parent="itemBackgroundStyle" >
+
+    <style name="itemBackgroundPressedStyle" parent="itemBackgroundStyle">
         <item name="android:background">@drawable/btn_white_radius</item>
     </style>
-    <style name="itemBackgroundPressedTopStyle" parent="itemBackgroundStyle" >
+
+    <style name="itemBackgroundPressedTopStyle" parent="itemBackgroundStyle">
         <item name="android:background">@drawable/btn_white_radius_top</item>
     </style>
-    <style name="itemBackgroundPressedBottomStyle" parent="itemBackgroundStyle" >
+
+    <style name="itemBackgroundPressedBottomStyle" parent="itemBackgroundStyle">
+        <item name="android:background">@drawable/btn_white_radius_bottom</item>
+    </style>
+
+    <style name="itemBackgroundStyle16" parent="BaseItemBackgroundStyle16" />
+
+    <style name="itemBackgroundTopStyle16" parent="itemBackgroundStyle16">
+        <item name="android:background">@drawable/bg_white_radius_top</item>
+    </style>
+
+    <style name="itemBackgroundBottomStyle16" parent="itemBackgroundStyle16">
+        <item name="android:background">@drawable/bg_white_radius_bottom</item>
+    </style>
+
+    <style name="itemBackgroundPressedStyle16" parent="itemBackgroundStyle16">
+        <item name="android:background">@drawable/btn_white_radius</item>
+    </style>
+
+    <style name="itemBackgroundPressedTopStyle16" parent="itemBackgroundStyle16">
+        <item name="android:background">@drawable/btn_white_radius_top</item>
+    </style>
+
+    <style name="itemBackgroundPressedBottomStyle16" parent="itemBackgroundStyle16">
         <item name="android:background">@drawable/btn_white_radius_bottom</item>
     </style>
 </resources>

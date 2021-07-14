@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="itemBackgroundStyle21" parent="itemBackgroundStyle" >
+    <style name="itemBackgroundStyle" parent="BaseItemBackgroundStyle" >
         <item name="android:elevation">3dp</item>
     </style>
-    <style name="itemBackgroundTopStyle" parent="itemBackgroundStyle21" >
-        <item name="android:background">@drawable/bg_white_radius_top</item>
+
+    <style name="itemBackgroundStyle16" parent="BaseItemBackgroundStyle16" >
+        <item name="android:elevation">3dp</item>
     </style>
-    <style name="itemBackgroundBottomStyle" parent="itemBackgroundStyle21" >
-        <item name="android:background">@drawable/bg_white_radius_bottom</item>
-    </style>
-    <style name="itemBackgroundPressedStyle" parent="itemBackgroundStyle21" >
-        <item name="android:background">@drawable/btn_white_radius</item>
-    </style>
-    <style name="itemBackgroundPressedTopStyle" parent="itemBackgroundStyle21" >
-        <item name="android:background">@drawable/btn_white_radius_top</item>
-    </style>
-    <style name="itemBackgroundPressedBottomStyle" parent="itemBackgroundStyle21" >
-        <item name="android:background">@drawable/btn_white_radius_bottom</item>
-    </style>
+
 </resources>
