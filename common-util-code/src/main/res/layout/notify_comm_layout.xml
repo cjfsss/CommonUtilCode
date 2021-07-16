@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/notify_layout"
     android:layout_width="match_parent"
+    tools:viewBindingIgnore="true"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_white_radius"
     android:gravity="center_vertical"

@@ -163,7 +163,7 @@ public class FileCompat {
         }
     }
 
-    public static boolean getLaunchTargetOpenFile(@NonNull final String pkgName, @Nullable final String filePath) {
+    public static boolean openFileTarget(@NonNull final String pkgName, @Nullable final String filePath) {
         try {
             Intent launchOpenFile = IntentCompat.getLaunchTargetOpenFile(pkgName, filePath);
             AppCompat.getApp().startActivity(launchOpenFile);
@@ -174,7 +174,7 @@ public class FileCompat {
         }
     }
 
-    public static boolean getLaunchTargetOpenFile(@NonNull final String pkgName, @Nullable final File file) {
+    public static boolean openFileTarget(@NonNull final String pkgName, @Nullable final File file) {
         try {
             Intent launchOpenFile = IntentCompat.getLaunchTargetOpenFile(pkgName, file);
             AppCompat.getApp().startActivity(launchOpenFile);
@@ -185,7 +185,7 @@ public class FileCompat {
         }
     }
 
-    public static boolean getLaunchTargetOpenFile(@NonNull final String pkgName,
+    public static boolean openFileTarget(@NonNull final String pkgName,
                                                   @NonNull String authority, @Nullable final String filePath) {
         try {
             Intent launchOpenFile = IntentCompat.getLaunchTargetOpenFile(AppCompat.getApp(), pkgName, authority, filePath);
@@ -197,7 +197,7 @@ public class FileCompat {
         }
     }
 
-    public static boolean getLaunchTargetOpenFile(@NonNull final String pkgName,
+    public static boolean openFileTarget(@NonNull final String pkgName,
                                                   @NonNull String authority, @Nullable final File file) {
         try {
             Intent launchOpenFile = IntentCompat.getLaunchTargetOpenFile(AppCompat.getApp(), pkgName, authority, file);
@@ -209,7 +209,7 @@ public class FileCompat {
         }
     }
 
-    public static boolean getLaunchTargetOpenFile(@NonNull Context context, @NonNull final String pkgName,
+    public static boolean openFileTarget(@NonNull Context context, @NonNull final String pkgName,
                                                   @NonNull String authority, @Nullable final String filePath) {
         try {
             Intent launchOpenFile = IntentCompat.getLaunchTargetOpenFile(context, pkgName, authority, filePath);
@@ -221,7 +221,7 @@ public class FileCompat {
         }
     }
 
-    public static boolean getLaunchTargetOpenFile(@NonNull Context context, @NonNull final String pkgName,
+    public static boolean openFileTarget(@NonNull Context context, @NonNull final String pkgName,
                                                   @NonNull String authority, @Nullable final File file) {
         try {
             Intent launchOpenFile = IntentCompat.getLaunchTargetOpenFile(context, pkgName, authority, file);
@@ -233,7 +233,7 @@ public class FileCompat {
         }
     }
 
-    public static boolean getLaunchOpenFile(@Nullable String file) {
+    public static boolean openFile(@Nullable String file) {
         try {
             Intent launchOpenFile = IntentCompat.getLaunchOpenFile(file);
             AppCompat.getApp().startActivity(launchOpenFile);
@@ -244,7 +244,7 @@ public class FileCompat {
         }
     }
 
-    public static boolean getLaunchOpenFile(@Nullable File file) {
+    public static boolean openFile(@Nullable File file) {
         try {
             Intent launchOpenFile = IntentCompat.getLaunchOpenFile(file);
             AppCompat.getApp().startActivity(launchOpenFile);
@@ -255,7 +255,7 @@ public class FileCompat {
         }
     }
 
-    public static boolean getLaunchOpenFile(@NonNull String authority, @Nullable String filePath) {
+    public static boolean openFile(@NonNull String authority, @Nullable String filePath) {
         try {
             Intent launchOpenFile = IntentCompat.getLaunchOpenFile(authority, filePath);
             AppCompat.getApp().startActivity(launchOpenFile);
@@ -266,7 +266,7 @@ public class FileCompat {
         }
     }
 
-    public static boolean getLaunchOpenFile(@NonNull String authority, @NonNull File file) {
+    public static boolean openFile(@NonNull String authority, @NonNull File file) {
         try {
             Intent launchOpenFile = IntentCompat.getLaunchOpenFile(authority, file);
             AppCompat.getApp().startActivity(launchOpenFile);
@@ -277,7 +277,7 @@ public class FileCompat {
         }
     }
 
-    public static boolean getLaunchOpenFile(@NonNull Context context, @NonNull String authority, @Nullable String filePath) {
+    public static boolean openFile(@NonNull Context context, @NonNull String authority, @Nullable String filePath) {
         try {
             Intent launchOpenFile = IntentCompat.getLaunchOpenFile(context, authority, filePath);
             context.startActivity(launchOpenFile);

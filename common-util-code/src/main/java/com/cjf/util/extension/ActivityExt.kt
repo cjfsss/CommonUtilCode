@@ -28,9 +28,9 @@ fun Fragment.positionArg(position: Int, vararg params: Pair<String, Any?>): Frag
 fun Fragment.position(position: Int, bundle: Array<out Pair<String, Any?>>? = null): Fragment {
     val mutableList: MutableList<Pair<String, Any?>> = arrayOf(Pair("position", position)).toMutableList()
     if (bundle != null) {
-        mutableList?.addAll(bundle.toMutableList())
+        mutableList.addAll(bundle.toMutableList())
     }
-    return bundle(mutableList?.toTypedArray())
+    return bundle(mutableList.toTypedArray())
 }
 
 fun Fragment.bundleArg(vararg params: Pair<String, Any?>): Fragment {
