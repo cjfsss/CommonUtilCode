@@ -315,7 +315,20 @@ public class DateUtils {
      * @return
      */
     public static int getCurrentMonth() {
-        return new GregorianCalendar().get(Calendar.MONTH);
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.MONTH) + 1;
+    }
+
+    /**
+     * 根据时间获取当前的月份
+     *
+     * @param time
+     * @return
+     */
+    public static int getCurrentMonth(long time) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(time);
+        return cal.get(Calendar.MONTH) + 1;
     }
 
     /**
@@ -511,6 +524,114 @@ public class DateUtils {
         }
         return strDate;
     }
+
+    /**
+     * 描述：获取当月第一天.
+     *
+     * @param format the format
+     * @return String String类型日期时间
+     */
+    public static String getFirstDayOfMonth(int month, String format) {
+        String strDate = null;
+        try {
+            Calendar calendar = Calendar.getInstance();
+            // 设置月份
+            calendar.set(Calendar.MONTH, month - 1);
+            // 获取某月最小天数
+            int firstDay = calendar.getActualMinimum(Calendar.DAY_OF_MONTH);
+            // 设置日历中月份的最小天数
+            calendar.set(Calendar.DAY_OF_MONTH, firstDay);
+            // 格式化日期
+            SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat(format);
+            strDate = mSimpleDateFormat.format(calendar.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return strDate;
+
+    }
+
+    /**
+     * 描述：获取当月最后一天.
+     *
+     * @param format the format
+     * @return String String类型日期时间
+     */
+    public static String getLastDayOfMonth(int month, String format) {
+        String strDate = null;
+        try {
+            Calendar calendar = Calendar.getInstance();
+            // 设置月份
+            calendar.set(Calendar.MONTH, month - 1);
+            // 获取某月最大天数
+            int lastDay = 0;
+            //2月的平年瑞年天数
+            if (month == 2) {
+                lastDay = calendar.getLeastMaximum(Calendar.DAY_OF_MONTH);
+            } else {
+                lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            }
+            // 设置日历中月份的最大天数
+            calendar.set(Calendar.DAY_OF_MONTH, lastDay);
+            SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat(format);
+            strDate = mSimpleDateFormat.format(calendar.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return strDate;
+    }
+
+    /**
+     * 描述：获取当月第一天.
+     *
+     * @return String String类型日期时间
+     */
+    public static long getFirstDayOfMonth(int month) {
+        try {
+            Calendar calendar = Calendar.getInstance();
+            // 设置月份
+            calendar.set(Calendar.MONTH, month - 1);
+            // 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
+            calendar.setFirstDayOfWeek(Calendar.MONDAY);
+            // 获取某月最小天数
+            int firstDay = calendar.getActualMinimum(Calendar.DAY_OF_MONTH);
+            // 设置日历中月份的最小天数
+            calendar.set(Calendar.DAY_OF_MONTH, firstDay);
+            return calendar.getTimeInMillis();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0L;
+
+    }
+
+    /**
+     * 描述：获取当月最后一天.
+     *
+     * @return String String类型日期时间
+     */
+    public static long getLastDayOfMonth(int month) {
+        try {
+            Calendar calendar = Calendar.getInstance();
+            // 设置月份
+            calendar.set(Calendar.MONTH, month - 1);
+            // 获取某月最大天数
+            int lastDay = 0;
+            //2月的平年瑞年天数
+            if (month == 2) {
+                lastDay = calendar.getLeastMaximum(Calendar.DAY_OF_MONTH);
+            } else {
+                lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            }
+            // 设置日历中月份的最大天数
+            calendar.set(Calendar.DAY_OF_MONTH, lastDay);
+            return calendar.getTimeInMillis();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0L;
+    }
+
 
     /**
      * 描述：判断是否是闰年()
@@ -742,4 +863,483 @@ public class DateUtils {
         }
         return day + "日";
     }
+
+    /**
+     * 获取昨天
+     *
+     * @return
+     */
+    public static Date getYesterday() {
+        return day(-1);
+    }
+
+    /**
+     * 获取明天
+     *
+     * @return
+     */
+    public static Date getTomorrow() {
+        return day(+1);
+    }
+
+    /**
+     * 在当前时间的基础上加或减去year年
+     *
+     * @param year
+     * @return
+     */
+    public static Date year(int year) {
+        Calendar Cal = Calendar.getInstance();
+        Cal.setTime(new Date());
+        Cal.add(Calendar.YEAR, year);
+        return Cal.getTime();
+    }
+
+    /**
+     * 在指定的时间上加或减去几年
+     *
+     * @param date
+     * @param year
+     * @return
+     */
+    public static Date year(Date date, int year) {
+        Calendar Cal = Calendar.getInstance();
+        Cal.setTime(date);
+        Cal.add(Calendar.YEAR, year);
+        return Cal.getTime();
+    }
+
+    /**
+     * 在当前时间的基础上加或减去几月
+     *
+     * @param month
+     * @return
+     */
+    public static Date month(int month) {
+        Calendar Cal = Calendar.getInstance();
+        Cal.setTime(new Date());
+        Cal.add(Calendar.MONTH, month);
+        return Cal.getTime();
+    }
+
+    /**
+     * 在指定的时间上加或减去几月
+     *
+     * @param date
+     * @param month
+     * @return
+     */
+    public static Date month(Date date, int month) {
+        Calendar Cal = Calendar.getInstance();
+        Cal.setTime(date);
+        Cal.add(Calendar.MONTH, month);
+        return Cal.getTime();
+    }
+
+    /**
+     * 在当前时间的基础上加或减去几天
+     *
+     * @param day
+     * @return
+     */
+    public static Date day(int day) {
+        Calendar Cal = Calendar.getInstance();
+        Cal.setTime(new Date());
+        Cal.add(Calendar.DAY_OF_YEAR, day);
+        return Cal.getTime();
+    }
+
+    /**
+     * 在指定的时间上加或减去几天
+     *
+     * @param date
+     * @param day
+     * @return
+     */
+    public static Date day(Date date, int day) {
+        Calendar Cal = Calendar.getInstance();
+        Cal.setTime(date);
+        Cal.add(Calendar.DAY_OF_YEAR, day);
+        return Cal.getTime();
+    }
+
+    /**
+     * 在当前时间的基础上加或减去几小时-支持浮点数
+     *
+     * @param hour
+     * @return
+     */
+    public static Date hour(float hour) {
+        Calendar Cal = Calendar.getInstance();
+        Cal.setTime(new Date());
+        Cal.add(Calendar.MINUTE, (int) (hour * 60));
+        return Cal.getTime();
+    }
+
+    /**
+     * 在制定的时间上加或减去几小时-支持浮点数
+     *
+     * @param date
+     * @param hour
+     * @return
+     */
+    public static Date hour(Date date, float hour) {
+        Calendar Cal = Calendar.getInstance();
+        Cal.setTime(date);
+        Cal.add(Calendar.MINUTE, (int) (hour * 60));
+        return Cal.getTime();
+    }
+
+    /**
+     * 在当前时间的基础上加或减去几分钟
+     *
+     * @param minute
+     * @return
+     */
+    public static Date minute(int minute) {
+        Calendar Cal = Calendar.getInstance();
+        Cal.setTime(new Date());
+        Cal.add(Calendar.MINUTE, minute);
+        return Cal.getTime();
+    }
+
+    /**
+     * 在制定的时间上加或减去几分钟
+     *
+     * @param date
+     * @param minute
+     * @return
+     */
+    public static Date minute(Date date, int minute) {
+        Calendar Cal = Calendar.getInstance();
+        Cal.setTime(date);
+        Cal.add(Calendar.MINUTE, minute);
+        return Cal.getTime();
+    }
+
+    /**
+     * 时间date1和date2的时间差-单位秒
+     *
+     * @param date1
+     * @param date2
+     * @return 秒
+     */
+    public static long subtract(Date date1, Date date2) {
+        return (date2.getTime() - date1.getTime()) / 1000;
+    }
+
+    /**
+     * 时间date1和date2的时间差-单位分钟
+     *
+     * @param date1
+     * @param date2
+     * @return 分钟
+     */
+    public static int subtractMinute(Date date1, Date date2) {
+        long cha = date2.getTime() - date1.getTime();
+        return (int) cha / (1000 * 60);
+    }
+
+    /**
+     * 时间date1和date2的时间差-单位小时
+     *
+     * @param date1
+     * @param date2
+     * @return 小时
+     */
+    public static int subtractHour(Date date1, Date date2) {
+        long cha = (date2.getTime() - date1.getTime()) / 1000;
+        return (int) cha / (60 * 60);
+    }
+
+
+    /**
+     * 时间date1和date2的时间差-单位天
+     *
+     * @param date1
+     * @param date2
+     * @return 天
+     */
+    public static int subtractDay(Date date1, Date date2) {
+        long cha = date2.getTime() - date1.getTime();
+        return (int) cha / (1000 * 60 * 60 * 24);
+    }
+
+
+    /**
+     * 时间date1和date2的时间差-单位月
+     *
+     * @param date1
+     * @param date2
+     * @return 月
+     */
+    public static int subtractMonth(Date date1, Date date2) {
+        int result;
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        c1.setTime(date1);
+        c2.setTime(date2);
+        int year1 = c1.get(Calendar.YEAR);
+        int month1 = c1.get(Calendar.MONTH);
+        int year2 = c2.get(Calendar.YEAR);
+        int month2 = c2.get(Calendar.MONTH);
+        if (year1 == year2) {
+            result = month2 - month1;
+        } else {
+            result = 12 * (year2 - year1) + month2 - month1;
+        }
+        return result;
+    }
+
+    /**
+     * 时间date1和date2的时间差-单位年
+     *
+     * @param date1
+     * @param date2
+     * @return 年
+     */
+    public static int subtractYear(Date date1, Date date2) {
+        int result;
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        c1.setTime(date1);
+        c2.setTime(date2);
+        int year1 = c1.get(Calendar.YEAR);
+        int year2 = c2.get(Calendar.YEAR);
+        result = year2 - year1;
+        return result;
+    }
+
+    /**
+     * 获取俩个时间的差结果用时秒表示
+     *
+     * @param date1
+     * @param date2
+     * @return 几小时:几分钟:几秒钟
+     * @Summary: 此处可以讲计算结果包装成一个结构体返回便于格式化
+     */
+    public static String subtractTime(Date date1, Date date2) {
+        String result = "";
+        try {
+            long sss = subtract(date1, date2);
+            int hh = (int) sss / (60 * 60);
+            int mm = (int) (sss - hh * 60 * 60) / (60);
+            int ss = (int) (sss - hh * 60 * 60 - mm * 60);
+            result = hh + ":" + mm + ":" + ss;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 获取俩个时间的查结果用时秒表示
+     *
+     * @param date1
+     * @param date2
+     * @return 几天-几小时:几分钟:几秒钟
+     * @Summary: 此处可以讲计算结果包装成一个结构体返回便于格式化
+     */
+    public static String subtractDate(Date date1, Date date2) {
+        String result = "";
+        try {
+            long sss = subtract(date1, date2);
+            int dd = (int) sss / (60 * 60 * 24);
+            int hh = (int) (sss - dd * 60 * 60 * 24) / (60 * 60);
+            int mm = (int) (sss - dd * 60 * 60 * 24 - hh * 60 * 60) / (60);
+            int ss = (int) (sss - dd * 60 * 60 * 24 - hh * 60 * 60 - mm * 60);
+            result = dd + "-" + hh + ":" + mm + ":" + ss;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 获取俩个时间之前的相隔的天数
+     *
+     * @param startTime
+     * @param endTime
+     * @return
+     * @throws ParseException
+     */
+    public static int subDay(Date startTime, Date endTime) {
+        int days = 0;
+        Calendar can1 = Calendar.getInstance();
+        can1.setTime(startTime);
+        Calendar can2 = Calendar.getInstance();
+        can2.setTime(endTime);
+        int year1 = can1.get(Calendar.YEAR);
+        int year2 = can2.get(Calendar.YEAR);
+
+        Calendar can = null;
+        if (can1.before(can2)) {
+            days -= can1.get(Calendar.DAY_OF_YEAR);
+            days += can2.get(Calendar.DAY_OF_YEAR);
+            can = can1;
+        } else {
+            days -= can2.get(Calendar.DAY_OF_YEAR);
+            days += can1.get(Calendar.DAY_OF_YEAR);
+            can = can2;
+        }
+        for (int i = 0; i < Math.abs(year2 - year1); i++) {
+            days += can.getActualMaximum(Calendar.DAY_OF_YEAR);
+            can.add(Calendar.YEAR, 1);
+        }
+
+        return days;
+    }
+
+    /**
+     * 判断在某个时间内
+     *
+     * @param startTime
+     * @param endTime
+     * @param date
+     * @return
+     */
+    public static boolean between(Date startTime, Date endTime, Date date) {
+        return date.after(startTime) && date.before(endTime);
+    }
+
+    /**
+     * 获取当前月第几周的周一
+     *
+     * @param long 时间
+     * @param week 1/2/3/4/5 第几周
+     * @return
+     */
+    public static long getThisWeekSunday(long time, int week) {
+        // 获取当前月的第一天
+        long firstDay = getFirstDayOfMonth(getCurrentMonth(time));
+        // 获取当前月第一周的最后一天
+        Date firstDayOfLastWeek = getThisWeekSunday(new Date(firstDay));
+        if (week == 1) {
+            // 第一周
+            return firstDayOfLastWeek.getTime();
+        }
+        long thisWeekMonday = getThisWeekMonday(time, week);
+        return getThisWeekSunday(new Date(thisWeekMonday)).getTime();
+    }
+
+
+    /**
+     * 获取当前月第几周的周日
+     *
+     * @param time 时间
+     * @param week 1/2/3/4/5 第几周
+     * @return
+     */
+    public static long getThisWeekMonday(long time, int week) {
+        // 获取当前月的第一天
+        long firstDay = getFirstDayOfMonth(getCurrentMonth(time));
+        if (week == 1) {
+            // 第一周
+            return firstDay;
+        }
+        // 获取当前月第一周的最后一天
+        Date firstDayOfLastWeek = getThisWeekSunday(new Date(firstDay));
+        // 获取当前月第一周的最后一天 的日期
+        Calendar cal = Calendar.getInstance();
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        cal.setTime(firstDayOfLastWeek);
+        cal.add(Calendar.DATE, (week - 1) * 7);
+        // 获取第几周的时间
+        return getThisWeekMonday(cal.getTime()).getTime();
+    }
+
+    /**
+     * 获取上周一
+     *
+     * @param date
+     * @return
+     */
+    public static Date geLastWeekMonday(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        cal.setTime(getThisWeekMonday(date));
+        cal.add(Calendar.DATE, -7);
+        return cal.getTime();
+    }
+
+    /**
+     * 获取本周一
+     *
+     * @param date
+     * @return
+     */
+    public static Date getThisWeekMonday(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        cal.setTime(date);
+        // 获得当前日期是一个星期的第几天
+        int dayWeek = cal.get(Calendar.DAY_OF_WEEK);
+        if (1 == dayWeek) {
+            cal.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        // 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        // 获得当前日期是一个星期的第几天
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+        // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+        cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);
+        return cal.getTime();
+    }
+
+    /**
+     * 获取下周一
+     *
+     * @param date
+     * @return
+     */
+    public static Date getNextWeekMonday(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        cal.setTime(getThisWeekMonday(date));
+        cal.add(Calendar.DATE, 7);
+        return cal.getTime();
+    }
+
+    /**
+     * 获取上周日
+     *
+     * @param date
+     * @return
+     */
+    public static Date geLastWeekSunday(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        cal.setTime(getThisWeekMonday(date));
+        cal.add(Calendar.DATE, -1);
+        return cal.getTime();
+    }
+
+    /**
+     * 获取本周日
+     *
+     * @param date
+     * @return
+     */
+    public static Date getThisWeekSunday(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        cal.setTime(getThisWeekMonday(date));
+        cal.add(Calendar.DATE, 6);
+        return cal.getTime();
+    }
+
+    /**
+     * 获取下周日
+     *
+     * @param date
+     * @return
+     */
+    public static Date getNextWeekSunday(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        cal.setTime(getThisWeekMonday(date));
+        cal.add(Calendar.DATE, 13);
+        return cal.getTime();
+    }
+
 }

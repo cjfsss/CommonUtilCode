@@ -4,14 +4,17 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
 
 import com.cjf.util.R;
 import com.cjf.util.utils.AppCompat;
+import com.cjf.util.utils.PairUtils;
 import com.cjf.util.utils.ResUtils;
 import com.cjf.util.utils.StringUtils;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -31,36 +34,45 @@ public class Simple<DATA> implements Serializable {
     @Nullable
     public DATA data;
 
+    public Map<String, Object> param;
+
     private final int pageSize;
 
     private boolean isUpdate;
 
-    public Simple(int code, @NonNull String message) {
-        this(code, message, null, AppCompat.getApp().getPageSize());
+    @SafeVarargs
+    public Simple(int code, @NonNull String message, @Nullable Pair<String, Object>... pairs) {
+        this(code, message, null, AppCompat.getApp().getPageSize(), pairs);
     }
 
-    public Simple(int code, @NonNull String message, boolean isUpdate) {
-        this(code, message, null, AppCompat.getApp().getPageSize(), isUpdate);
+    @SafeVarargs
+    public Simple(int code, @NonNull String message, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        this(code, message, null, AppCompat.getApp().getPageSize(), isUpdate, pairs);
     }
 
-    public Simple(int code, @NonNull String message, @Nullable DATA data) {
-        this(code, message, data, AppCompat.getApp().getPageSize());
+    @SafeVarargs
+    public Simple(int code, @NonNull String message, @Nullable DATA data, @Nullable Pair<String, Object>... pairs) {
+        this(code, message, data, AppCompat.getApp().getPageSize(), pairs);
     }
 
-    public Simple(int code, @NonNull String message, @Nullable DATA data, boolean isUpdate) {
-        this(code, message, data, AppCompat.getApp().getPageSize(), isUpdate);
+    @SafeVarargs
+    public Simple(int code, @NonNull String message, @Nullable DATA data, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        this(code, message, data, AppCompat.getApp().getPageSize(), isUpdate, pairs);
     }
 
-    public Simple(int code, @NonNull String message, @Nullable DATA data, int pageSize) {
-        this(code, message, data, pageSize, true);
+    @SafeVarargs
+    public Simple(int code, @NonNull String message, @Nullable DATA data, int pageSize, @Nullable Pair<String, Object>... pairs) {
+        this(code, message, data, pageSize, true, pairs);
     }
 
-    public Simple(int code, @NonNull String message, @Nullable DATA data, int pageSize, boolean isUpdate) {
+    @SafeVarargs
+    public Simple(int code, @NonNull String message, @Nullable DATA data, int pageSize, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
         this.code = code;
         this.message = message;
         this.data = data;
         this.pageSize = pageSize;
         this.isUpdate = isUpdate;
+        this.param = PairUtils.toMap(pairs);
     }
 
     public void setUpdate(boolean update) {
@@ -136,83 +148,99 @@ public class Simple<DATA> implements Serializable {
                 '}';
     }
 
-    public static <DATA> Simple<DATA> success(@NonNull String message, @NonNull DATA data) {
-        return new Simple<>(200, message, data);
+    @SafeVarargs
+    public static <DATA> Simple<DATA> success(@NonNull String message, @NonNull DATA data, @Nullable Pair<String, Object>... pairs) {
+        return new Simple<>(200, message, data, pairs);
     }
 
-    public static <DATA> Simple<DATA> success(@NonNull String message, @NonNull DATA data, boolean isUpdate) {
-        return new Simple<>(200, message, data, isUpdate);
+    @SafeVarargs
+    public static <DATA> Simple<DATA> success(@NonNull String message, @NonNull DATA data, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new Simple<>(200, message, data, isUpdate, pairs);
     }
 
-    public static <DATA> Simple<DATA> success(@NonNull String message, @NonNull DATA data, int pageSize) {
-        return new Simple<>(200, message, data, pageSize);
+    @SafeVarargs
+    public static <DATA> Simple<DATA> success(@NonNull String message, @NonNull DATA data, int pageSize, @Nullable Pair<String, Object>... pairs) {
+        return new Simple<>(200, message, data, pageSize, pairs);
     }
 
-    public static <DATA> Simple<DATA> success(@NonNull String message, @NonNull DATA data, int pageSize, boolean isUpdate) {
-        return new Simple<>(200, message, data, pageSize, isUpdate);
+    @SafeVarargs
+    public static <DATA> Simple<DATA> success(@NonNull String message, @NonNull DATA data, int pageSize, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new Simple<>(200, message, data, pageSize, isUpdate, pairs);
     }
 
-    public static <DATA> Simple<DATA> empty(@NonNull String message) {
-        return new Simple<>(300, message);
+    @SafeVarargs
+    public static <DATA> Simple<DATA> empty(@NonNull String message, @Nullable Pair<String, Object>... pairs) {
+        return new Simple<>(300, message, pairs);
     }
 
-    public static <DATA> Simple<DATA> empty(@NonNull String message, boolean isUpdate) {
-        return new Simple<>(300, message, isUpdate);
+    @SafeVarargs
+    public static <DATA> Simple<DATA> empty(@NonNull String message, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new Simple<>(300, message, isUpdate, pairs);
     }
 
-    public static <DATA> Simple<DATA> error(@NonNull String message) {
-        return new Simple<>(404, message);
+    @SafeVarargs
+    public static <DATA> Simple<DATA> error(@NonNull String message, @Nullable Pair<String, Object>... pairs) {
+        return new Simple<>(404, message, pairs);
     }
 
-    public static <DATA> Simple<DATA> error(@NonNull String message, boolean isUpdate) {
-        return new Simple<>(404, message, isUpdate);
+    @SafeVarargs
+    public static <DATA> Simple<DATA> error(@NonNull String message, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new Simple<>(404, message, isUpdate, pairs);
     }
 
-    public static <DATA> Simple<DATA> error() {
-        return new Simple<>(404, ResUtils.getString(R.string.http_server_error));
+    @SafeVarargs
+    public static <DATA> Simple<DATA> error(@Nullable Pair<String, Object>... pairs) {
+        return new Simple<>(404, ResUtils.getString(R.string.http_server_error), pairs);
     }
 
-    public static <DATA> Simple<DATA> error(boolean isUpdate) {
-        return new Simple<>(404, ResUtils.getString(R.string.http_server_error), isUpdate);
+    @SafeVarargs
+    public static <DATA> Simple<DATA> error(boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new Simple<>(404, ResUtils.getString(R.string.http_server_error), isUpdate, pairs);
     }
 
-    public static <DATA> Simple<DATA> error(Throwable throwable) {
+    @SafeVarargs
+    public static <DATA> Simple<DATA> error(Throwable throwable, @Nullable Pair<String, Object>... pairs) {
         String message = throwable.getMessage();
         if (TextUtils.isEmpty(message)) {
-            return Simple.error();
+            return Simple.error(pairs);
         }
-        return new Simple<>(404, Objects.requireNonNull(message));
+        return new Simple<>(404, Objects.requireNonNull(message), pairs);
     }
 
-    public static <DATA> Simple<DATA> error(Throwable throwable, boolean isUpdate) {
+    @SafeVarargs
+    public static <DATA> Simple<DATA> error(Throwable throwable, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
         String message = throwable.getMessage();
         if (TextUtils.isEmpty(message)) {
-            return Simple.error();
+            return Simple.error(pairs);
         }
-        return new Simple<>(404, Objects.requireNonNull(message),isUpdate);
+        return new Simple<>(404, Objects.requireNonNull(message), isUpdate, pairs);
     }
 
-    public static <DATA> Simple<DATA> net(Throwable throwable) {
+    @SafeVarargs
+    public static <DATA> Simple<DATA> net(Throwable throwable, @Nullable Pair<String, Object>... pairs) {
         String message = throwable.getMessage();
         if (TextUtils.isEmpty(message)) {
-            return Simple.net();
+            return Simple.net(pairs);
         }
-        return new Simple<>(100, Objects.requireNonNull(message));
+        return new Simple<>(100, Objects.requireNonNull(message), pairs);
     }
 
-    public static <DATA> Simple<DATA> net(Throwable throwable, boolean isUpdate) {
+    @SafeVarargs
+    public static <DATA> Simple<DATA> net(Throwable throwable, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
         String message = throwable.getMessage();
         if (TextUtils.isEmpty(message)) {
-            return Simple.net();
+            return Simple.net(pairs);
         }
-        return new Simple<>(100, Objects.requireNonNull(message),isUpdate);
+        return new Simple<>(100, Objects.requireNonNull(message), isUpdate, pairs);
     }
 
-    public static <DATA> Simple<DATA> net() {
-        return new Simple<>(100, ResUtils.getString(R.string.http_network_error));
+    @SafeVarargs
+    public static <DATA> Simple<DATA> net(@Nullable Pair<String, Object>... pairs) {
+        return new Simple<>(100, ResUtils.getString(R.string.http_network_error), pairs);
     }
 
-    public static <DATA> Simple<DATA> net(boolean isUpdate) {
-        return new Simple<>(100, ResUtils.getString(R.string.http_network_error), isUpdate);
+    @SafeVarargs
+    public static <DATA> Simple<DATA> net(boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new Simple<>(100, ResUtils.getString(R.string.http_network_error), isUpdate, pairs);
     }
 }

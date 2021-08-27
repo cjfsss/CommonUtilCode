@@ -2,6 +2,7 @@ package com.cjf.base.simple;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
 
 import com.cjf.util.R;
 import com.cjf.util.utils.ResUtils;
@@ -19,28 +20,34 @@ import java.util.List;
  */
 public class SimpleList<ITEM> extends Simple<List<ITEM>> {
 
-    public SimpleList(int code, @NonNull String message) {
-        super(code, message);
+    @SafeVarargs
+    public SimpleList(int code, @NonNull String message, @Nullable Pair<String, Object>... pairs) {
+        super(code, message,pairs);
     }
 
-    public SimpleList(int code, @NonNull String message, boolean isUpdate) {
-        super(code, message, isUpdate);
+    @SafeVarargs
+    public SimpleList(int code, @NonNull String message, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        super(code, message, isUpdate,pairs);
     }
 
-    public SimpleList(int code, @NonNull String message, @Nullable List<ITEM> items) {
-        super(code, message, items);
+    @SafeVarargs
+    public SimpleList(int code, @NonNull String message, @Nullable List<ITEM> items, @Nullable Pair<String, Object>... pairs) {
+        super(code, message, items,pairs);
     }
 
-    public SimpleList(int code, @NonNull String message, @Nullable List<ITEM> items, boolean isUpdate) {
-        super(code, message, items, isUpdate);
+    @SafeVarargs
+    public SimpleList(int code, @NonNull String message, @Nullable List<ITEM> items, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        super(code, message, items, isUpdate,pairs);
     }
 
-    public SimpleList(int code, @NonNull String message, @Nullable List<ITEM> items, int pageSize) {
-        super(code, message, items, pageSize);
+    @SafeVarargs
+    public SimpleList(int code, @NonNull String message, @Nullable List<ITEM> items, int pageSize, @Nullable Pair<String, Object>... pairs) {
+        super(code, message, items, pageSize,pairs);
     }
 
-    public SimpleList(int code, @NonNull String message, @Nullable List<ITEM> items, int pageSize, boolean isUpdate) {
-        super(code, message, items, pageSize, isUpdate);
+    @SafeVarargs
+    public SimpleList(int code, @NonNull String message, @Nullable List<ITEM> items, int pageSize, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        super(code, message, items, pageSize, isUpdate,pairs);
     }
 
     public long count() {
@@ -50,67 +57,83 @@ public class SimpleList<ITEM> extends Simple<List<ITEM>> {
         return data.size();
     }
 
-    public static <ITEM> SimpleList<ITEM> successList(@NonNull String message, @NonNull List<ITEM> data) {
-        return new SimpleList<>(200, message, data);
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> successList(@NonNull String message, @NonNull List<ITEM> data, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(200, message, data,pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> successList(@NonNull String message, @NonNull List<ITEM> data, boolean isUpdate) {
-        return new SimpleList<>(200, message, data, isUpdate);
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> successList(@NonNull String message, @NonNull List<ITEM> data, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(200, message, data, isUpdate,pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> successList(@NonNull String message, @NonNull List<ITEM> data, int pageSize) {
-        return new SimpleList<>(200, message, data, pageSize);
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> successList(@NonNull String message, @NonNull List<ITEM> data, int pageSize, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(200, message, data, pageSize,pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> successList(@NonNull String message, @NonNull List<ITEM> data, int pageSize, boolean isUpdate) {
-        return new SimpleList<>(200, message, data, pageSize, isUpdate);
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> successList(@NonNull String message, @NonNull List<ITEM> data, int pageSize, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(200, message, data, pageSize, isUpdate,pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> emptyList(@NonNull String message) {
-        return new SimpleList<>(300, message);
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> emptyList(@NonNull String message, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(300, message,pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> emptyList(@NonNull String message, boolean isUpdate) {
-        return new SimpleList<>(300, message, isUpdate);
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> emptyList(@NonNull String message, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(300, message, isUpdate,pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> errorList(@NonNull String message) {
-        return new SimpleList<>(404, message);
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> errorList(@NonNull String message, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(404, message,pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> errorList(@NonNull String message, boolean isUpdate) {
-        return new SimpleList<>(404, message, isUpdate);
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> errorList(@NonNull String message, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(404, message, isUpdate,pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> errorList() {
-        return new SimpleList<>(404, ResUtils.getString(R.string.http_server_error));
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> errorList(@Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(404, ResUtils.getString(R.string.http_server_error),pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> errorList(boolean isUpdate) {
-        return new SimpleList<>(404, ResUtils.getString(R.string.http_server_error), isUpdate);
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> errorList(boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(404, ResUtils.getString(R.string.http_server_error), isUpdate,pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> errorList(Throwable throwable) {
-        return new SimpleList<>(404, throwable.getMessage());
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> errorList(Throwable throwable, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(404, throwable.getMessage(),pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> errorList(Throwable throwable, boolean isUpdate) {
-        return new SimpleList<>(404, throwable.getMessage(), isUpdate);
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> errorList(Throwable throwable, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(404, throwable.getMessage(), isUpdate,pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> netList(Throwable throwable) {
-        return new SimpleList<>(100, throwable.getMessage());
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> netList(Throwable throwable, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(100, throwable.getMessage(),pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> netList(Throwable throwable, boolean isUpdate) {
-        return new SimpleList<>(100, throwable.getMessage(), isUpdate);
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> netList(Throwable throwable, boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(100, throwable.getMessage(), isUpdate,pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> netList() {
-        return new SimpleList<>(100, ResUtils.getString(R.string.http_network_error));
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> netList(@Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(100, ResUtils.getString(R.string.http_network_error),pairs);
     }
 
-    public static <ITEM> SimpleList<ITEM> netList(boolean isUpdate) {
-        return new SimpleList<>(100, ResUtils.getString(R.string.http_network_error), isUpdate);
+    @SafeVarargs
+    public static <ITEM> SimpleList<ITEM> netList(boolean isUpdate, @Nullable Pair<String, Object>... pairs) {
+        return new SimpleList<>(100, ResUtils.getString(R.string.http_network_error), isUpdate,pairs);
     }
 }

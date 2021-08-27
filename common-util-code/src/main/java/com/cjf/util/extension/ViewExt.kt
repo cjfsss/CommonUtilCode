@@ -3,13 +3,19 @@ package com.cjf.util.extension
 import android.animation.Animator
 import android.animation.IntEvaluator
 import android.animation.ValueAnimator
+import android.app.Activity
+import android.app.Dialog
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.os.Build
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.cjf.util.utils.ViewUtils
+
 
 /**
  * <p>Title: View </p>
@@ -21,6 +27,51 @@ import com.cjf.util.utils.ViewUtils
  * @version : 1.0
  */
 
+
+fun <V : View> Activity.find(id: Int) = lazy {
+    return@lazy findViewById<V>(id) ?: null
+}
+
+fun <V : View> find(view: View?, id: Int) = lazy {
+    return@lazy view?.findViewById<V>(id)
+}
+
+fun <V : View> Fragment.find(id: Int) = lazy {
+    return@lazy view?.findViewById<V>(id)
+}
+
+fun <V : View> Dialog.find(id: Int) = lazy {
+    return@lazy findViewById<V>(id) ?: null
+}
+
+fun <V : View> ViewGroup.find(id: Int) = lazy {
+    return@lazy findViewById<V>(id) ?: null
+}
+
+@RequiresApi(Build.VERSION_CODES.P)
+fun <V : View> Activity.requireView(id: Int) = lazy {
+    return@lazy requireViewById<V>(id)
+}
+
+@RequiresApi(Build.VERSION_CODES.P)
+fun <V : View> requireView(view: View?, id: Int) = lazy {
+    return@lazy view?.requireViewById<V>(id)
+}
+
+@RequiresApi(Build.VERSION_CODES.P)
+fun <V : View> Fragment.requireView(id: Int) = lazy {
+    return@lazy view?.requireViewById<V>(id)
+}
+
+@RequiresApi(Build.VERSION_CODES.P)
+fun <V : View> Dialog.requireView(id: Int) = lazy {
+    return@lazy requireViewById<V>(id)
+}
+
+@RequiresApi(Build.VERSION_CODES.P)
+fun <V : View> ViewGroup.requireView(id: Int) = lazy {
+    return@lazy requireViewById<V>(id)
+}
 
 /**
  * 设置View的高度
@@ -198,6 +249,7 @@ fun View.click(action: (view: View) -> Unit) {
 fun View.clearClick() {
     setOnClickListener(null)
 }
+
 /**
  * 设置长按监听
  */

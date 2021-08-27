@@ -1,5 +1,6 @@
 package com.cjf.util.extension
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
@@ -96,4 +97,11 @@ fun Fragment.post(action: ()->Unit){
 
 fun Fragment.postDelay(delay:Long = 0, action: ()->Unit){
     LifecycleHandler(this).postDelayed({ action() }, delay)
+}
+
+fun Fragment.bundle(bundle: Bundle? = null): Fragment {
+    if (bundle != null) {
+        arguments = bundle
+    }
+    return this
 }
