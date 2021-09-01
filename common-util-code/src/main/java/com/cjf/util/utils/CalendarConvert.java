@@ -47,6 +47,35 @@ public class CalendarConvert {
     }
 
     /**
+     * Return the current time in milliseconds.
+     *
+     * @return the current time in milliseconds
+     */
+    public static long getNowMills() {
+        return System.currentTimeMillis();
+    }
+
+    /**
+     * Return the current formatted time string.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
+     *
+     * @return the current formatted time string
+     */
+    public static String getNowString() {
+        return millis2String(System.currentTimeMillis(), getDefaultFormat());
+    }
+
+    /**
+     * Return the current formatted time string.
+     *
+     * @param format The format.
+     * @return the current formatted time string
+     */
+    public static String getNowString(@NonNull final String format) {
+        return millis2String(System.currentTimeMillis(), format);
+    }
+
+    /**
      * Milliseconds to the formatted time string.
      * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
