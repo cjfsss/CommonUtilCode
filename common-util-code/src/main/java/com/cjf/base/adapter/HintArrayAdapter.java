@@ -27,19 +27,33 @@ import java.util.List;
 public class HintArrayAdapter extends ArrayAdapter<String> {
 
     private final String mFirstHint;
+    private final String mFirstDropdownText;
 
     public HintArrayAdapter(@NonNull Context context, @NonNull List<String> dataList, String firstHint) {
-        this(context, android.R.layout.simple_spinner_item, dataList, firstHint);
+        this(context, android.R.layout.simple_spinner_item, dataList, firstHint, null);
+    }
+
+    public HintArrayAdapter(@NonNull Context context, @NonNull List<String> dataList, String firstHint, String firstDropdownText) {
+        this(context, android.R.layout.simple_spinner_item, dataList, firstHint, firstDropdownText);
+    }
+
+    public HintArrayAdapter(@NonNull Context context, int layoutId, @NonNull List<String> dataList, String firstHint, String firstDropdownText) {
+        this(context, layoutId, R.layout.support_simple_spinner_dropdown_item, dataList, firstHint, firstDropdownText);
     }
 
     public HintArrayAdapter(@NonNull Context context, int layoutId, @NonNull List<String> dataList, String firstHint) {
-        this(context, layoutId, R.layout.support_simple_spinner_dropdown_item, dataList, firstHint);
+        this(context, layoutId, R.layout.support_simple_spinner_dropdown_item, dataList, firstHint, null);
     }
 
     public HintArrayAdapter(@NonNull Context context, @LayoutRes int layoutId, @LayoutRes int dropdownLayoutId, @NonNull List<String> dataList, String firstHint) {
+        this(context, layoutId, dropdownLayoutId, dataList, firstHint, null);
+    }
+
+    public HintArrayAdapter(@NonNull Context context, @LayoutRes int layoutId, @LayoutRes int dropdownLayoutId, @NonNull List<String> dataList, String firstHint, String firstDropdownText) {
         super(context, layoutId, dataList);
         setDropDownViewResource(dropdownLayoutId);
         mFirstHint = firstHint;
+        mFirstDropdownText = firstDropdownText;
     }
 
     @NonNull
@@ -59,8 +73,8 @@ public class HintArrayAdapter extends ArrayAdapter<String> {
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View dropDownView = super.getDropDownView(position, convertView, parent);
         if (position == 0) {
-            if (dropDownView instanceof TextView && !TextUtils.isEmpty(mFirstHint)) {
-                ((TextView) dropDownView).setText("全部");
+            if (dropDownView instanceof TextView && !TextUtils.isEmpty(mFirstDropdownText)) {
+                ((TextView) dropDownView).setText(mFirstDropdownText);
                 return dropDownView;
             }
         }
