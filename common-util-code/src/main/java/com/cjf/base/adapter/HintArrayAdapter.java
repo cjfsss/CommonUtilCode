@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 
 import com.cjf.util.R;
 
@@ -29,8 +29,16 @@ public class HintArrayAdapter extends ArrayAdapter<String> {
     private final String mFirstHint;
 
     public HintArrayAdapter(@NonNull Context context, @NonNull List<String> dataList, String firstHint) {
-        super(context, R.layout.support_simple_spinner_dropdown_item, dataList);
-        setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        this(context, android.R.layout.simple_spinner_item, dataList, firstHint);
+    }
+
+    public HintArrayAdapter(@NonNull Context context, int layoutId, @NonNull List<String> dataList, String firstHint) {
+        this(context, layoutId, R.layout.support_simple_spinner_dropdown_item, dataList, firstHint);
+    }
+
+    public HintArrayAdapter(@NonNull Context context, @LayoutRes int layoutId, @LayoutRes int dropdownLayoutId, @NonNull List<String> dataList, String firstHint) {
+        super(context, layoutId, dataList);
+        setDropDownViewResource(dropdownLayoutId);
         mFirstHint = firstHint;
     }
 
