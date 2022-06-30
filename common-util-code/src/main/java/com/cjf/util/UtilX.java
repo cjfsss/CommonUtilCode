@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.PathUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 import com.chad.library.adapter.base.module.LoadMoreModuleConfig;
@@ -18,7 +19,6 @@ import com.cjf.base.picture.PictureSelectorEngineImpl;
 import com.cjf.util.function.UtilFunction;
 import com.cjf.util.log.DefaultLogDelegateImpl;
 import com.cjf.util.log.LogX;
-import com.cjf.util.path.PathManager;
 import com.cjf.util.toast.DefaultToastDelegateImpl;
 import com.cjf.util.toast.ToastX;
 import com.cjf.util.utils.ResUtils;
@@ -26,6 +26,8 @@ import com.luck.picture.lib.app.IApp;
 import com.luck.picture.lib.app.PictureAppMaster;
 import com.luck.picture.lib.engine.PictureSelectorEngine;
 import com.lxj.xpopup.XPopup;
+
+import java.io.File;
 
 /**
  * <p>Title: UtilX </p>
@@ -63,18 +65,31 @@ public class UtilX {
         }
         Utils.init(function.getApplication());
         LogX.setDelegate(new DefaultLogDelegateImpl());
-        LogUtils.getConfig().setLog2FileSwitch(AppUtils.isAppDebug()).setGlobalTag("Code");
-        CrashUtils.init(PathManager.getLogDir(), new CrashUtils.OnCrashListener() {
+        LogUtils.getConfig().setFileExtension(".log").setLog2FileSwitch(AppUtils.isAppDebug()).setGlobalTag("Code");
+        String logDir = PathUtils.getExternalAppFilesPath();
+        if (logDir == null) {
+            logDir = PathUtils.getExternalAppCachePath();
+            if (logDir == null) {
+                logDir = PathUtils.getExternalDcimPath();
+                if (logDir == null) {
+                    logDir = PathUtils.getInternalAppFilesPath();
+                }
+            }
+        }
+        logDir = logDir + File.separator + "log";
+        CrashUtils.init(logDir, new CrashUtils.OnCrashListener() {
             @Override
-            public void onCrash(String crashInfo, Throwable e) {
-                LogX.printErrStackTrace("Crash", e, crashInfo);
+            public void onCrash(CrashUtils.CrashInfo crashInfo) {
+                if (crashInfo != null) {
+                    LogX.printErrStackTrace("Crash", crashInfo.getThrowable(), crashInfo);
+                }
             }
         });
         ToastX.setDelegete(new DefaultToastDelegateImpl());
-        ToastUtils.setBgColor(ResUtils.getColor(R.color.black));
-        ToastUtils.setMsgTextSize(16);
-        ToastUtils.setMsgColor(ResUtils.getColor(R.color.design_white));
-        ToastUtils.setGravity(Gravity.CENTER, 0, 0);
+        ToastUtils.getDefaultMaker().setBgColor(ResUtils.getColor(R.color.black));
+        ToastUtils.getDefaultMaker().setTextSize(16);
+        ToastUtils.getDefaultMaker().setTextColor(ResUtils.getColor(R.color.design_white));
+        ToastUtils.getDefaultMaker().setGravity(Gravity.CENTER, 0, 0);
         XPopup.setPrimaryColor(function.getPrimaryColor());
         LoadMoreModuleConfig.setDefLoadMoreView(new DefaultLoadMoreView());
     }

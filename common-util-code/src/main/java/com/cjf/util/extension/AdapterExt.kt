@@ -23,7 +23,8 @@ import com.cjf.ui.scroll.HVScrollView
 fun <T, VH : BaseViewHolder> BaseQuickAdapter<T, VH>.scrollTo(id: Int, x: Int, y: Int) {
     for (i in 0 until itemCount) {
         val viewByPosition =
-                getViewByPosition(i, id)
+                getViewByPosition(headerViewPosition + i, id)
+
         if (viewByPosition != null && viewByPosition is HVScrollView) {
             viewByPosition.scrollTo(x, y)
         }

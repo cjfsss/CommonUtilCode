@@ -3,6 +3,7 @@ package com.cjf.util.log;
 import androidx.annotation.NonNull;
 
 
+import com.blankj.utilcode.util.PathUtils;
 import com.cjf.util.path.PathManager;
 
 import java.io.File;
@@ -28,12 +29,21 @@ public class LogXWrite {
 
     synchronized static void writeToLocal(@NonNull Throwable e, @NonNull String ClassName, final Object... objs) {
         try {
-            @NonNull String logPath = PathManager.getLogDir();
-            LogX.eTag(LogX.TAG, "logPath:" + logPath);
-            File path = new File(logPath);
+            String logDir = PathUtils.getExternalAppFilesPath();
+            if (logDir == null) {
+                logDir = PathUtils.getExternalAppCachePath();
+                if (logDir == null) {
+                    logDir = PathUtils.getExternalDcimPath();
+                    if (logDir == null) {
+                        logDir = PathUtils.getInternalAppFilesPath();
+                    }
+                }
+            }
+            logDir = logDir + File.separator + "log_day";
+            File path = new File(logDir);
             createOrExistsDir(path);
             String nowTime = getNowString(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
-            File file = new File(logPath + "/log_" + nowTime + ".log");
+            File file = new File(logDir + "/log_" + nowTime + ".log");
             FileWriter fw = new FileWriter(file, true);
             if (!isFileExists(file)) {
                 createOrExistsFile(file);

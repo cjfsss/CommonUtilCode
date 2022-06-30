@@ -5,8 +5,8 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.cjf.util.toast.ToastX
 
 /**
  * <p>Title: DefaultToastDelegateImpl </p>
@@ -18,8 +18,12 @@ import com.cjf.util.toast.ToastX
  * @version : 1.0
  */
 class DefaultToastDelegateImpl : ToastX.ToastDelegate {
+
     override fun showCustomLong(@LayoutRes layoutId: Int): View {
-        return ToastUtils.showCustomLong(layoutId)
+        val view = View.inflate(ActivityUtils.getTopActivity(), layoutId, null)
+        ToastUtils.getDefaultMaker().setDurationIsLong(true)
+        ToastUtils.getDefaultMaker().show(view)
+        return view
     }
 
     override fun showShort(text: CharSequence) {
@@ -39,15 +43,18 @@ class DefaultToastDelegateImpl : ToastX.ToastDelegate {
     }
 
     override fun setMsgTextSize(textSize: Int) {
-        ToastUtils.setMsgTextSize(textSize)
+        ToastUtils.getDefaultMaker().setTextSize(textSize)
     }
 
     override fun showCustomShort(@LayoutRes layoutId: Int): View {
-        return ToastUtils.showCustomShort(layoutId)
+        val view = View.inflate(ActivityUtils.getTopActivity(), layoutId, null)
+        ToastUtils.getDefaultMaker().setDurationIsLong(false)
+        ToastUtils.getDefaultMaker().show(view)
+        return view
     }
 
     override fun setMsgColor(@ColorInt msgColor: Int) {
-        ToastUtils.setMsgColor(msgColor)
+        ToastUtils.getDefaultMaker().setTextColor(msgColor)
     }
 
     override fun cancel() {
@@ -55,11 +62,11 @@ class DefaultToastDelegateImpl : ToastX.ToastDelegate {
     }
 
     override fun setBgColor(@ColorInt backgroundColor: Int) {
-        ToastUtils.setBgColor(backgroundColor)
+        ToastUtils.getDefaultMaker().setBgColor(backgroundColor)
     }
 
     override fun setBgResource(@DrawableRes id: Int) {
-        ToastUtils.setBgResource(id)
+        ToastUtils.getDefaultMaker().setBgResource(id)
     }
 
     override fun showLong(text: CharSequence) {
@@ -79,6 +86,6 @@ class DefaultToastDelegateImpl : ToastX.ToastDelegate {
     }
 
     override fun setGravity(gravity: Int, xOffset: Int, yOffset: Int) {
-        ToastUtils.setGravity(gravity, xOffset, yOffset)
+        ToastUtils.getDefaultMaker().setGravity(gravity, xOffset, yOffset)
     }
 }
